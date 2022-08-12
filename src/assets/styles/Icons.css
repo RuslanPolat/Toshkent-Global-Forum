@@ -1,0 +1,32 @@
+.icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #8992A9;
+    cursor: pointer;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    mask-position: center;
+    -webkit-mask-position: center;
+}
+
+.icon.icon-msg{
+    mask-image: url("../icons/msgicon.svg");
+    -webkit-mask-image: url("../icons/msgicon.svg");
+}
+.icon.icon-notify {
+    mask-image: url("../icons/iconnotify.svg");
+    -webkit-mask-image: url("../icons/iconnotify.svg");
+}
+.icon.icon-full{
+    mask-image: url("../icons/fullscreenicon.svg");
+    -webkit-mask-image: url("../icons/fullscreenicon.svg");
+}
+.icon.icon-clear{
+    mask-image: url("../icons/clearicon.svg");
+    -webkit-mask-image: url("../icons/clearicon.svg");
+    width: 16px;
+    height: 16px;
+}
