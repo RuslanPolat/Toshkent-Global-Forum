@@ -10,8 +10,4 @@ export const GlobaStyle = styled.div`
         margin: 0px;
         padding: 0;
     }
-    body {
-        background: #000;
-    }
-
 `
