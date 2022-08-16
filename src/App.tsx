@@ -1,21 +1,23 @@
-import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import { GlobaStyle } from './assets/styles/GlobaStyle';
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
+//
+import "bootstrap/dist/css/bootstrap.css";
 
 //
-import Navbar from './components/navbar/Navbar';
-import ModalCard from './components/modalcard/ModalCard';
+import { GlobalStyle } from "./assets/styles/GlobaStyle";
 
+import Router from "./route/Router";
+import Context from "./context/Context";
 
-function App() {
+export default function App() {
   return (
     <>
-    <GlobaStyle>
-    <Navbar/>
-    <ModalCard/>
-    </GlobaStyle> 
+      <GlobalStyle />
+      <BrowserRouter>
+        <Context>
+          <Router />
+        </Context>
+      </BrowserRouter>
     </>
   );
 }
-
-export default App;

@@ -3,9 +3,9 @@ import styled from "styled-components";
 export const NavbarStyle = styled.section`
   .navbar {
     display: flex;
-    aligin-items: center;
+    align-items: center;
     justify-content: space-between;
-    padding: 18px 50px 29px 38px;
+    padding: 18px 50px 19px 38px;
     background: #f8f8f8;
     .text--div {
       h1 {

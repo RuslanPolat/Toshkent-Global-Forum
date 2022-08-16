@@ -89,4 +89,30 @@
 .icon-expand{
   mask-image: url('../icons/Expand.svg');
   -webkit-mask-image: url('../icons/Expand.svg');
+  width: 14px;
+  height: 14px;
 }
+
+/* sitebar */
+.icon.icon-layout {
+  mask-image: url("../icons/layoutIcon.svg");
+  -webkit-mask-image: url("../icons/layoutIcon.svg");
+}
+.icon.icon-users {
+  mask-image: url("../icons/userIcon.svg");
+  -webkit-mask-image: url("../icons/userIcon.svg");
+}
+
+.icon.icon-out {
+  mask-image: url("../icons/outIcon.svg");
+  -webkit-mask-image: url("../icons/outIcon.svg");
+}
+.icon.icon-fields {
+  mask-image: url("../icons/fieldsicon.svg");
+  -webkit-mask-image: url("../icons/fieldsicon.svg");
+}
+.icon.icon-add {
+  mask-image: url("../icons/addicon.svg");
+  -webkit-mask-image: url("../icons/addicon.svg");
+}
+

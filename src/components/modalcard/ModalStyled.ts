@@ -9,7 +9,7 @@ export const ModalStyled = styled.div`
   border: 1px solid red;
   padding-top: 33px;
   padding-left: 23px;
-//   padding-right: 34px;
+  border: 1px solid red;
   
   h1 {
     font-family: Lato;

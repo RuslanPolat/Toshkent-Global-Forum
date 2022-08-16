@@ -1,32 +1,52 @@
-import React from 'react'
-import { BrowserRouter, Route, Routes,  Navigate} from 'react-router-dom'
-import Login from '../modules/login/Login'
-import Agada from '../modules/main/agada/Agada'
-import Biletlar from '../modules/main/biletlar/Biletlar'
-import Comments from '../modules/main/comments/Comments'
-import Fields from '../modules/main/fields/Fields'
-import Foyalanuvchi from '../modules/main/foydalanuvchilar/Foyalanuvchi'
-import Position from '../modules/main/positions/Position'
-import Spiker from '../modules/main/spikers/Spiker'
-import Settings from '../modules/settings/Settings'
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useContext } from "react";
+import { IRes, MyContext } from "../context/Context";
 
-//pages
+// Layout
+import Layout from "../layout/Layout";
 
+// AUTH
+import Login, { ILogin } from "../pages/login/Login";
+
+// ADMIN PAGE
+import UsersMain from "../components/usermain/UsersMain";
+import Fields from "../pages/fields/Fields";
+import Position from "../pages/position/Position";
+// import Users from "../pages/admin/Users";
+
+export interface IAuth {
+  auth?: {
+    token: string;
+    _id: number;
+    phoneNumber: string;
+    password: string;
+    isAuth: string;
+  };
+}
 
 export default function Router() {
+  const isAuth = localStorage.getItem("ISAUTH");
+  console.log("AUTH: ", isAuth);
+
+  if (!isAuth) {
+    return (
+      <Routes>
+        {/* Auth Route */}
+        <Route path="/login" element={<Login />} />
+        <Route path="*" element={<Navigate to="/login" />} />
+      </Routes>
+    );
+  }
+
   return (
-    <BrowserRouter>
-        <Routes>
-           <Route path='login' element={<Login/>}/>
-           <Route path='/foydalanuvchilar' element={<Foyalanuvchi/>}/>
-           <Route path='/agada' element={<Agada/>}/>
-           <Route path='/biletlar' element={<Biletlar/>}/>
-           <Route path='/commnets' element={<Comments/>}/>
-           <Route path='/fields' element={<Fields/>}/>
-           <Route path='/positions' element={<Position/>}/>
-           <Route path='/spikers' element={<Spiker/>}/>
-           <Route path='/settings' element={<Settings/>}/>
-        </Routes>
-    </BrowserRouter>
-  )
+    <Routes>
+      {/* Admin Panel Route */}
+       <Route path="/" element={<Layout/>}>
+        <Route path="/users" element={<UsersMain />} /> 
+        <Route path="/fields" element={<Fields/>}/>
+        <Route path="/position" element={<Position/>}/>
+        <Route path="*" element={<Navigate to="users" />} />
+      </Route>
+    </Routes>
+  );
 }

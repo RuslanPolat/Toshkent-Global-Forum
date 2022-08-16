@@ -4,7 +4,7 @@ import styled from 'styled-components'
 //
 import "./Icons.css"
 
-export const GlobaStyle = styled.div`
+export const GlobalStyle = styled.div`
     *{
         box-sizing: border-box;
         margin: 0px;

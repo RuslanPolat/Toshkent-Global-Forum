@@ -23,12 +23,16 @@ export default function UsersMain() {
         <div className="second--div">
           <SearchInput />
         </div>
-        <div className="end--div">
-          <div className="user-information">
-            <div className="expand">
-              <input type="checkbox" />
-              <p>Full name</p>
+        <div className="grid--div">
+            <div>
+              <div className="expand">
+                <input type="checkbox" />
+                 <p>Full name</p>
+              </div>
             </div>
+        </div>
+        {/* <div className="end--div">
+          <div className="user-information">
             <div className="expand">
               <p>Date</p>
               <span>
@@ -80,7 +84,7 @@ export default function UsersMain() {
             </div>
             <div className="banned">banned</div>
           </footer>
-        </div>
+        </div> */}
       </section>
     </UsersStyled>
   );

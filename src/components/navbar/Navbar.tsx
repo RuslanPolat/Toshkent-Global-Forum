@@ -1,12 +1,18 @@
 import React from 'react'
+import { useLocation } from 'react-router'
+import { Interface } from 'readline'
 import { NavbarStyle } from './NavbarStyle'
 
+
 export default function Navbar() {
+
+  const location = useLocation().pathname
+
   return (
     <NavbarStyle>
         <section className='navbar'>
             <div className='text--div'>
-                <h1>Users</h1>
+                <h1>{location === "/fields" ? "Fields" : location === "/position" ? "Position" : "User"}</h1>
             </div>
             <div className='icon--div'>
                 <div className='icon icon-msg'></div>
