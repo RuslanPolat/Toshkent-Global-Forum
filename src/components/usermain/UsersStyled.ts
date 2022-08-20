@@ -5,7 +5,8 @@ export const UsersStyled = styled.div`
   border: 2px solid #ffffff;
   box-shadow: 0px 14px 14px rgba(20, 23, 38, 0.02);
   border-radius: 0 0 16px 16px;
-  margin: 0 38px;
+  width: 90%;
+  margin-left: 115px;
   .first--div {
     display: flex;
     align-items: center;

@@ -1,3 +1,4 @@
+import { AxiosRequestConfig } from "axios";
 import React, {
   createContext,
   Dispatch,
@@ -21,8 +22,20 @@ export interface IContext {
   userLogin?: () => Response;
   getPosition?: () => Promise<void>;
   getField?: () => Promise<void>;
-  userPosit?: IPosit;
-  postPosit?: (name: { uz: string; ru: string; en: string }) => Promise<void> | undefined;
+  deletePosit?: any;
+  deleteField?: Function;
+  userPosit?: any;
+  userFiel?: any;
+  postPosit?: (name: {
+    uz: string;
+    ru: string;
+    en: string;
+  }) => Promise<void> | undefined;
+  postField?: (name: {
+    uz: string;
+    ru: string;
+    en: string;
+  }) => Promise<void> | undefined;
 }
 
 export interface IRes {
@@ -72,8 +85,14 @@ export default function Context({ children }: any) {
 
   const [userPosit, setUserPosit] = useState<IPosit[]>([]);
 
+  const [userFiel, setUserField] = useState<any[]>([]);
+
   function sucsessPosit(res: IPosit[]) {
     setUserPosit(res);
+  }
+
+  function sucsessField(res: IPosit[]) {
+    setUserField(res);
   }
 
   async function getPosition() {
@@ -87,24 +106,56 @@ export default function Context({ children }: any) {
     }
   }
 
-  async function postPosit(body: any) {
+  async function deletePosit(ids: {}) {
     try {
-      const res = await myAxios.post("/position", body);
+      const res = await myAxios.delete("/position", { data: ids });
+      getPosition();
+    } catch (error) {
+      console.log(error);
+      console.log("Delete Positda xato");
+    }
+  }
+
+
+  async function deleteField(ids: {}) {
+    try {
+      const res = await myAxios.delete("/field", { data: ids });
+      getField();
+    } catch (error) {
+      console.log(error);
+      console.log("Delete Fielda xato");
+    }
+  }
+
+
+  async function postPosit(name: any) {
+    try {
+      const res = await myAxios.post("/position", { name });
+      getPosition();
       console.log(res);
     } catch (error) {
       console.log("Post Position ishlamadi !");
-      
     }
   }
 
   async function getField() {
     try {
       const res = await myAxios.get("/field");
-      sucsessPosit(res.data.data);
+      sucsessField(res.data.data);
       console.log(res);
     } catch (error) {
       console.log(error);
       console.log("Position Ishlamadi");
+    }
+  }
+
+  async function postField(name: any) {
+    try {
+      const res = await myAxios.post("/field", { name });
+      getField();
+      console.log(res);
+    } catch (error) {
+      console.log("Post Feild ishlamadi !");
     }
   }
 
@@ -142,6 +193,10 @@ export default function Context({ children }: any) {
         getField,
         userPosit,
         postPosit,
+        postField,
+        userFiel,
+        deletePosit,
+        deleteField,
       }}
     >
       {children}

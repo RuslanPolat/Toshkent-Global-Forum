@@ -9,6 +9,7 @@ interface IInput {
   name: string;
 }
 
+
 export default function Input({
   value,
   placeholder,
@@ -40,6 +41,7 @@ const StyledInput = styled.div`
       top: 50%;
       right: 20px;
       transform: translateY(-50%);
+      z-index: 2;
     }
   }
   input {

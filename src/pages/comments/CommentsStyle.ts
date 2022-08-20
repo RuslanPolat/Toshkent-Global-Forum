@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const PositionStyled = styled.div`
+export const CommentsStyle = styled.div`
   background: #ffffff;
   border: 2px solid #ffffff;
   box-shadow: 0px 14px 14px rgba(20, 23, 38, 0.02);
@@ -101,7 +101,6 @@ export const PositionStyled = styled.div`
     align-items: center;
     padding: 16px 18px 10px;
     background: #fafafb;
-    
   }
   .users--div {
     display: flex;
@@ -126,9 +125,8 @@ export const PositionStyled = styled.div`
     align-items: flex-start;
     justify-content: space-between;
 
-    .expand {      
-      color: #8992A9;
+    .expand {
+      color: #8992a9;
     }
-    
   }
 `;

@@ -3,31 +3,39 @@ import styled from "styled-components";
 
 interface IButton {
   type?: "button";
+  stylee?: () => boolean;
   children?: any;
-  click : () => void
+  onClick : () => void;
+  click : () => void;
 }
 
-export default function MyButton({ type = "button", children, click }: IButton) {
+export default function MyButton({ stylee, type = "button", children, click }: IButton) {
   return (
-    <StyledMyButton>
-      <button type={type} onClick={click} >{children}</button>
+    <StyledMyButton >
+      <button  type={type} onClick={click} >{children}</button>
     </StyledMyButton>
   );
 }
 const StyledMyButton = styled.div`
   width: 100%;
-  .btns {
+  /* .btns {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 50px;
+    gap: 50px; */
     button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
       border-radius: 15px;
       width: 189px;
       height: 40px;
       color: #4340da;
       border: none;
       background: #f6f6f6;
+      background: ${(props) => (props.style ? " #f6f6f6" : "#4340da")};
+      color: ${(props) => (props.style ? "#4340da": "white")};
 
       &:first-of-type {
         background-color: royalblue;
@@ -36,5 +44,4 @@ const StyledMyButton = styled.div`
         color: #fff;
       }
     }
-  }
 `;

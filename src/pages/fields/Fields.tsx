@@ -1,22 +1,22 @@
 import React, { useState, useContext, useEffect } from "react";
-import BaseModalWrapper from "../../components/modal/BaseModalWrapper";
+import BaseModal from "../../pages/fields/fieldmodal/BaseModal";
 
 //
 import SearchInput from "../../components/searchinput/SerchInput";
 import { UsersStyled } from "../../components/usermain/UsersStyled";
 import { FieldsStyle } from "./FieldsStyle";
 
-import {IContext, IPosit, MyContext, IDate } from "../../context/Context"
+import { IContext, IPosit, MyContext, IDate } from "../../context/Context";
 
 export default function Fields() {
-
-  const { getField, userPosit } = useContext<IContext>(MyContext)
+  const [list, setList] = useState<string[]>([]);
+  const { getField, userFiel, deleteField } = useContext<IContext>(MyContext);
 
   useEffect(() => {
-    if(getField) {
+    if (getField) {
       getField();
     }
-}, []);
+  }, []);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -24,135 +24,126 @@ export default function Fields() {
     setIsModalVisible((wasModalVisible) => !wasModalVisible);
   };
 
+  function deleteId(id: string) {
+    if (list.includes(id)) {
+      setList((p) => p.filter((i) => i !== id));
+    } else {
+      setList((p) => [...p, id]);
+    }
+  }
+  const [checked, setChecked] = useState<boolean>(false);
+  const handleChange = () => {
+
+    if (!checked) {
+      for (let i = 0; i < userFiel?.data.length; i++) {
+        setList((p) => [...p, userFiel?.data?.[i]._id]);
+      }
+    } else {
+      for (let i = 0; i < userFiel?.data.length; i++)
+        setList((p) => p.filter((item) => item !== userFiel?.data[i]?._id));
+    }
+
+    setChecked(!checked);
+  };
+  // const editItem:any
+  function editInfo() {
+    const editItem = userFiel?.data?.map((item: any) => item?._id === list[0] && item );
+    return editItem
+  }
+  
+
+  // const deleteFields = (id: string) => {
+  //   if (deleteField) {
+  //     deleteField({ id: checkStore });
+  //   }
+  // };
+
+  function deleteFields() {
+    if (deleteField) {
+      deleteField({ ids: list });
+    }
+  }
+
   return (
     <FieldsStyle>
-       <section className="user--card">
+      <section className="user--card">
         <div className="first--div">
           <div className="tag--div">
             <h2>4 Users selected</h2>
           </div>
           <div className="icon--div">
-                <div className="icon icon-icon1"></div>
-                <div onClick={toggleModal} className="icon icon-add"></div>
-              </div>
+            <div className="icon icon-icon1" onClick={deleteFields}></div>
+            <div onClick={toggleModal} className="icon icon-add"></div>
+            <div
+              className="icon icon-icon2"
+              onClick={() => {
+                toggleModal(), editInfo()
+              }}
+            ></div>
+          </div>
         </div>
         <div className="second--div">
           <SearchInput />
         </div>
         <div className="grid--div">
-            <div>
-              <div className="expand">
-                <input type="checkbox" />
-                 <p>Full name</p>
-                 <span>
-                  <div className="icon icon-expand"></div>
-                 </span>
-              </div>
+          <div>
+            <div className="expand">
+              <input type="checkbox" onClick={handleChange} checked={checked} />
+              <p>Full name</p>
+              <span>
+                <div className="icon icon-expand"></div>
+              </span>
             </div>
+          </div>
         </div>
       </section>
       <section className="user--card">
-        {userPosit?.data?.map((i: IDate, idx: number) => (
+        {userFiel?.data?.map((i: IDate, idx: number) => (
           <div key={idx}>
-            {/* <div className="first--div">
-              <div className="tag--div">
-                <h2>4 Users selected</h2>
-              </div>
-              <div className="icon--div">
-                <div className="icon icon-icon1"></div>
-                <div onClick={toggleModal} className="icon icon-add"></div>
-              </div>
-            </div>
-            <div className="second--div">
-              <SearchInput />
-            </div> */}
             <div className="grid--div">
               <div className="card--div">
-                {/* <div className="expand">
-                  <input type="checkbox" />
-                  <p>Nomi</p>
-                  <span>
-                    <div className="icon icon-expand"></div>
-                  </span>
-                </div> */}
                 <div className="expand">
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    checked={list.includes(i._id)}
+                    onChange={() => deleteId(i._id)}
+                  />
                   <p id="p">{i?.name.uz}</p>
                 </div>
               </div>
               <div className="card--div">
-                {/* <div className="expand">
-                  <p>Sector</p>
-                  <span>
-                    <div className="icon icon-expand"></div>
-                  </span>
-                </div> */}
                 <div className="expand">
                   <p>{i?.__v}</p>
                 </div>
               </div>
               <div>
-                {/* <div className="expand">
-                  <p>Qator</p>
-                  <span>
-                    <div className="icon icon-expand"></div>
-                  </span>
-                </div> */}
                 <div className="expand"></div>
                 <p>{i?.name.ru}</p>
               </div>
               <div className="card--div">
-                {/* <div className="expand">
-                  <p>O'rindiq</p>
-                  <span>
-                    <div className="icon icon-expand"></div>
-                  </span>
-                </div> */}
                 <div className="expand">
                   <p>{i?.name.ru}</p>
                 </div>
               </div>
               <div className="card--div">
-                {/* <div className="expand">
-                  <p>Band qilingan</p>
-                  <span>
-                    <div className="icon icon-expand"></div>
-                  </span>
-                </div> */}
                 <div className="expand">
                   <p>{i?.name.ru}</p>
                 </div>
               </div>
               <div className="card--div">
-                {/* <div className="expand">
-                  <p>Mijoz ismi</p>
-                  <span>
-                    <div className="icon icon-expand"></div>
-                  </span>
-                </div> */}
                 <div className="expand">
                   <p>{i?.name.ru}</p>
                 </div>
               </div>
-              <div className="card--div">
-                {/* <div className="expand">
-                  <p>Mijoz raqami</p>
-                  <span>
-                    <div className="icon icon-expand"></div>
-                  </span>
-                </div> */}
-                {/* <div className="expand">
-                  <span id="span">Banned</span>
-                </div> */}
-              </div>
+              <div className="card--div"></div>
             </div>
           </div>
         ))}
-        
       </section>
-      <BaseModalWrapper
+      <BaseModal
         isModalVisible={isModalVisible}
         onBackdropClick={toggleModal}
+        editInfo={editInfo}
       />
     </FieldsStyle>
   );

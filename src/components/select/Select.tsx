@@ -5,7 +5,7 @@ export default function () {
   return (
     <SelectStyled>
       <section className="select_heder">
-        <input type="text" placeholder="Feiled" />
+        <input type="select" placeholder="Feiled" />
         <div className="icon icon-vector"></div>
       </section>
     </SelectStyled>
@@ -25,11 +25,7 @@ const SelectStyled = styled.div`
       border-radius: 8px;
       width: 422px;
       border: none;
-      position: relative
-
-      &::placeholder {
-        color: #343434;
-      }
+      position: relative;
 
     }  
     

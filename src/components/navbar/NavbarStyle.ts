@@ -7,6 +7,11 @@ export const NavbarStyle = styled.section`
     justify-content: space-between;
     padding: 18px 50px 19px 38px;
     background: #f8f8f8;
+    position: fixed;
+    width: 90%;
+    margin-left: 118px;
+    background-color: #f8f8f8;
+    z-index: 2;
     .text--div {
       h1 {
         font-family: Lato;

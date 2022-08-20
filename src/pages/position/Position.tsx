@@ -5,11 +5,15 @@ import BaseModalWrapper from "../../components/modal/BaseModalWrapper";
 import SearchInput from "../../components/searchinput/SerchInput";
 import { UsersStyled } from "../../components/usermain/UsersStyled";
 import { PositionStyled } from "./PositionStyled";
-
 import { IContext, IPosit, MyContext, IDate } from "../../context/Context";
 
+interface inputProps {
+  deletePosit?: Promise<void> | undefined;
+}
+
 export default function Position() {
-  const { getPosition, userPosit } = useContext<IContext>(MyContext);
+  const [list, setList] = useState<string[]>([]);
+  const { getPosition, userPosit, deletePosit } = useContext<IContext>(MyContext);
 
   useEffect(() => {
     if (getPosition) {
@@ -23,25 +27,69 @@ export default function Position() {
     setIsModalVisible((wasModalVisible) => !wasModalVisible);
   };
 
+
+  const [checked, setChecked] = useState<boolean>(false);
+  const handleChange = () => {
+
+    if (!checked) {
+      for (let i = 0; i < userPosit?.data.length; i++) {
+        setList((p) => [...p, userPosit?.data?.[i]._id]);
+      }
+    } else {
+      for (let i = 0; i < userPosit?.data.length; i++)
+        setList((p) => p.filter((item) => item !== userPosit?.data[i]?._id));
+    }
+
+    setChecked(!checked);
+  };
+
+  function editInfo() {
+    const editItem = userPosit?.data?.map((item: any) => item?._id === list[0] && item );
+    return editItem
+  }
+
+
+  function deleteId(id: string) {
+    if (list.includes(id)) {
+      setList((p) => p.filter((i) => i !== id));
+    } else {
+      setList((p) => [...p, id]);
+    }
+  }
+
+  function deletePosition() {
+    if (deletePosit) {
+      deletePosit({ ids: list });
+    }
+  }
+
   return (
-    <PositionStyled>
+    <PositionStyled >
        <section className="user--card">
         <div className="first--div">
           <div className="tag--div">
             <h2>4 Users selected</h2>
           </div>
-          <div className="icon--div">
-                <div className="icon icon-icon1"></div>
+              <div className="icon--div">
+                <div onClick={deletePosition} className="icon icon-icon1"></div>
                 <div onClick={toggleModal} className="icon icon-add"></div>
+                <div className="icon icon-icon2" 
+                   onClick={() => {
+                    toggleModal(), editInfo()
+                  }}
+                ></div>
               </div>
-        </div>
+       </div>
         <div className="second--div">
           <SearchInput />
         </div>
         <div className="grid--div">
             <div>
               <div className="expand">
-                <input type="checkbox" />
+                <input type="checkbox"
+                onClick={handleChange}
+                checked={checked}
+                />
                  <p>Full name</p>
                  <span>
                   <div className="icon icon-expand"></div>
@@ -56,7 +104,11 @@ export default function Position() {
             <div className="grid--div">
               <div className="card--div">
                 <div className="expand">
-                  <input type="checkbox" />
+                  <input type="checkbox"
+                    checked={list.includes(i._id)} 
+                   onChange={ () => deleteId(i._id)
+                  }
+                  />
                   <p id="p">{i?.name.uz}</p>
                 </div>
               </div>
@@ -91,6 +143,7 @@ export default function Position() {
       <BaseModalWrapper
         isModalVisible={isModalVisible}
         onBackdropClick={toggleModal}
+        editInfo={editInfo}
       />
     </PositionStyled>
   );

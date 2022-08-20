@@ -6,6 +6,9 @@ export const FieldsStyle = styled.div`
   box-shadow: 0px 14px 14px rgba(20, 23, 38, 0.02);
   border-radius: 0 0 16px 16px;
   margin: 0 38px;
+  width: 85%;
+  margin-top: 94px;
+  margin-left: 155px;
   .first--div {
     display: flex;
     align-items: center;
@@ -120,6 +123,5 @@ export const FieldsStyle = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
-    
   }
 `;

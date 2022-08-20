@@ -18,5 +18,6 @@ const StyledLayout = styled.div`
   .layout {
     width: 100%;
     background: #f8f8f8;
+    min-height: 100vh;
   }
 `;

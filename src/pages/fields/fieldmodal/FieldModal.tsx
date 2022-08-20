@@ -1,21 +1,21 @@
 import React, { useContext, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
-import { IContext, MyContext } from "../../context/Context";
-import Button from "../button/Button";
-import MyButton from "../button/MyButton";
-import Input from "../input/Input";
+import { IContext, MyContext } from "../../../context/Context";
+import Button from "../../../components/button/Button";
+// import Button from "../button/Button";
+import MyButton from "../../../components/button/MyButton";
+import Input from "../../../components/input/Input";
 // import "./assets/style/style.css";
-import Select from "../select/Select";
-import BaseModalWrapper from "./BaseModalWrapper";
+// import Select from "../select/Select";
 
 interface ModalProps {
   onBackdropClick: () => void;
   editInfo: any;
 }
 
-const Modal: React.FC<ModalProps> = ({ onBackdropClick, editInfo }) => {
-  const { postPosit } = useContext<IContext>(MyContext);
+const FieldModal: React.FC<ModalProps> = ({ onBackdropClick, editInfo }) => {
+  const { postField } = useContext<IContext>(MyContext);
   const [name, setName] = useState({
     uz: "",
     ru: "",
@@ -34,59 +34,55 @@ const Modal: React.FC<ModalProps> = ({ onBackdropClick, editInfo }) => {
     }
   }, []);
 
-  function changeName(e: React.ChangeEvent<HTMLInputElement>) {
+  function changeNamee(e: React.ChangeEvent<HTMLInputElement>) {
     const { value, name } = e.target;
 
     setName((p) => ({ ...p, [name]: value }));
   }
 
-  function handleSubmit() {
-    if (postPosit) {
-      postPosit(name);
+  function handleeSubmit() {
+    if (postField) {
+      postField(name);
     }
-    setName({
-      uz: "",
-      ru: "",
-      en: "",
-    });
-    // onBackdropClick()
-
   }
 
-  return ReactDOM.createPortal( 
-    <div >
+  return ReactDOM.createPortal(
+    <div>
       <Styledapp>
         <form>
-          <h1>Add Position</h1>
+          <h1>Add Field</h1>
           <Input
             value={name.uz}
             placeholder="Name in uz*"
-            onChange={changeName}
+            onChange={changeNamee}
             name="uz"
           />
           <Input
             value={name.ru}
             placeholder="Name in ru*"
-            onChange={changeName}
+            onChange={changeNamee}
             name="ru"
           />
           <Input
             value={name.en}
             placeholder="Name in en*"
-            onChange={changeName}
+            onChange={changeNamee}
             name="en"
           />
+
           <div className="button">
-            {/* <MyButton stylee={false} onClick={() => onBackdropClick!} click={handleSubmit}>
-              Click
-            </MyButton>
-            <MyButton stylee={true} onClick={() => onBackdropClick} click={() => onBackdropClick}>
-              Close
-            </MyButton> */}
-            <Button click={() => {handleSubmit(); onBackdropClick()}} pe={false} typee="button">
-              Save 
+            <Button
+              click={() => {
+                handleeSubmit();
+                onBackdropClick();
+                console.log(name);
+              }}
+              pe={false}
+              typee="button"
+            >
+              Save
             </Button>
-            <Button typee="submit" pe={true}>
+            <Button typee="button" click={() => onBackdropClick()} pe={true}>
               Cancel
             </Button>
           </div>
@@ -97,7 +93,7 @@ const Modal: React.FC<ModalProps> = ({ onBackdropClick, editInfo }) => {
   );
 };
 
-export default Modal;
+export default FieldModal;
 
 const Styledapp = styled.div`
   width: max-content;

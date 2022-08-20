@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { IRes, MyContext } from "../context/Context";
 
@@ -12,6 +12,12 @@ import Login, { ILogin } from "../pages/login/Login";
 import UsersMain from "../components/usermain/UsersMain";
 import Fields from "../pages/fields/Fields";
 import Position from "../pages/position/Position";
+import Ticket from "../pages/ticket/Ticket";
+import Foydalanuvchilar from "../pages/users/Foydalanuvchilar";
+import Agenda from "../pages/agenda/Agenda";
+import Spikerlar from "../pages/spicers/Spikerlar";
+import Comments from "../pages/comments/Comments";
+import Settings from "../pages/settings/Settings";
 // import Users from "../pages/admin/Users";
 
 export interface IAuth {
@@ -27,6 +33,8 @@ export interface IAuth {
 export default function Router() {
   const isAuth = localStorage.getItem("ISAUTH");
   console.log("AUTH: ", isAuth);
+  const navigate = useNavigate(); 
+
 
   if (!isAuth) {
     return (
@@ -38,14 +46,21 @@ export default function Router() {
     );
   }
 
+
   return (
     <Routes>
       {/* Admin Panel Route */}
-       <Route path="/" element={<Layout/>}>
-        <Route path="/users" element={<UsersMain />} /> 
+       <Route element={<Layout/>}>
+        {/* <Route path="/users" element={<UsersMain />} />  */}
+        <Route path="/ticket" element={<Ticket/>}/>
+        <Route path="/foydalanuvchilar" element={<Foydalanuvchilar/>}/>
+        <Route path="agenda" element={<Agenda/>}/>
         <Route path="/fields" element={<Fields/>}/>
         <Route path="/position" element={<Position/>}/>
-        <Route path="*" element={<Navigate to="users" />} />
+        <Route path="/spikerlar" element={<Spikerlar/>}/>
+        <Route path="/comments" element={<Comments/>} />
+        <Route path="/settings" element={<Settings/>} />
+        <Route path="*" element={<Navigate to="position" />} />
       </Route>
     </Routes>
   );

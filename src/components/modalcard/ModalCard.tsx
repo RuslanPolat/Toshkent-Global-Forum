@@ -8,7 +8,9 @@ import Input from '../input/Input';
 import Select from '../select/Select';
 
 
-interface ModalProps {
+
+interface BaseModalWrapperProps {
+  isModalVisible: boolean;
   onBackdropClick: () => void;
 }
 

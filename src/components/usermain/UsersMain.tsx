@@ -31,60 +31,6 @@ export default function UsersMain() {
               </div>
             </div>
         </div>
-        {/* <div className="end--div">
-          <div className="user-information">
-            <div className="expand">
-              <p>Date</p>
-              <span>
-                <div className="icon icon-expand"></div>
-              </span>
-            </div>
-            <div className="expand">
-              <p>Tel nomer</p>
-              <span>
-                <div className="icon icon-expand"></div>
-              </span>
-            </div>
-            <div className="expand">
-              <p>Soha</p>
-              <span>
-                <div className="icon icon-expand"></div>
-              </span>
-            </div>
-            <div className="expand">
-              <p>Brand</p>
-              <span>
-                <div className="icon icon-expand"></div>
-              </span>
-            </div>
-            <div className="expand">
-              <p>Xodimlar soni</p>
-              <span>
-                <div className="icon icon-expand"></div>
-              </span>
-            </div>
-            <div className="expand">
-              <p>Lavozimi</p>
-              <span>
-                <div className="icon icon-expand"></div>
-              </span>
-            </div>
-          </div>
-          <footer className="card">
-            <div className="expand">
-              <input type="checkbox" />
-              <p id="p">Adison Rhiel Madsen</p>
-            </div>
-            <div className="numbers--div">
-            <p>5001929442</p>
-            <p>5001929442</p>
-            <p>5001929442</p>
-            <p>5001929442</p>
-            <p>5001929442</p>
-            </div>
-            <div className="banned">banned</div>
-          </footer>
-        </div> */}
       </section>
     </UsersStyled>
   );

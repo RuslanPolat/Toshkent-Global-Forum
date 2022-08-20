@@ -12,7 +12,10 @@ export default function Navbar() {
     <NavbarStyle>
         <section className='navbar'>
             <div className='text--div'>
-                <h1>{location === "/fields" ? "Fields" : location === "/position" ? "Position" : "User"}</h1>
+                <h1>{location === "/fields" ? "Fields" : location === "/position" ? "Position"
+                 : location === "/ticket" ? "Biletlar" :  location === "/foydalanuvchilar" ? "Foydalanuvchilar"
+                  :  location === "/agenda" ? "Agenda" 
+                  :  location === "/spikerlar" ? "Speaker" :  location === "/comments" ? "Comments" :  location === "/settings" ? "Settings" : "User"}</h1>
             </div>
             <div className='icon--div'>
                 <div className='icon icon-msg'></div>

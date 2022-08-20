@@ -115,4 +115,37 @@
   mask-image: url("../icons/addicon.svg");
   -webkit-mask-image: url("../icons/addicon.svg");
 }
+.icon.icon-ticket {
+  mask-image: url("../icons/ticket.svg");
+  -webkit-mask-image: url("../icons/ticket.svg");
+}
+.icon.icon-agenda {
+  mask-image: url("../icons/agenda.svg");
+  -webkit-mask-image: url("../icons/agenda.svg");
+}
+.icon.icon-users {
+  mask-image: url("../icons/users.svg");
+  -webkit-mask-image: url("../icons/users.svg");
+}
+.icon.icon-speaker {
+  mask-image: url("../icons/speaker.svg");
+  -webkit-mask-image: url("../icons/speaker.svg");
+}
+.icon.icon-positions {
+  mask-image: url("../icons/positions.svg");
+  -webkit-mask-image: url("../icons/positions.svg");
+}
+.icon.icon-settings {
+  mask-image: url("../icons/settings.svg");
+  -webkit-mask-image: url("../icons/settings.svg");
+}
+.icon.icon-comments {
+  mask-image: url("../icons/comments.svg");
+  -webkit-mask-image: url("../icons/comments.svg");
+}
+
+
+
+
+
 

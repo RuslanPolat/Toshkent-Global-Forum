@@ -10,7 +10,6 @@ export const InputStyled = styled.div`
         border-radius: 8px;
         border: none;
         padding: 15px 12px;
-        padding:
         position: absolute;
         font-weight: 400;
         font-size: 15px;

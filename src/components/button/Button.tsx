@@ -3,15 +3,16 @@ import styled from "styled-components";
 
 interface IInput {
   children?: string;
-  typee?: "submit";
+  typee?: "button" | "submit";
   pe?: boolean;
-  onClick?: any;
+  onClick?: () => void;
   handleSumbit?: void;
+  click?: () => void;
 }
 
-export default function Button({ children, typee,  pe, handleSumbit, onClick }: IInput) {
-  return <Styledboot
-  onClick={handleSumbit} handleSumbit={handleSumbit} pe={pe} type={typee}>{children}</Styledboot>;
+export default function Button({ children, typee,  pe, handleSumbit, click }: IInput) {
+  return <Styledboot onClick={click} 
+  handleSumbit={handleSumbit} pe={pe} type={typee}>{children}</Styledboot>;
 }
 const Styledboot = styled.button<IInput>`
   border-radius: 8px;
