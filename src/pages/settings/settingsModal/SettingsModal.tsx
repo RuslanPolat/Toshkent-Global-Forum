@@ -7,7 +7,6 @@ import Button from "../../../components/button/Button";
 import MyButton from "../../../components/button/MyButton";
 import Input from "../../../components/input/Input";
 // import "./assets/style/style.css";
-import Select from "../../../components/select/Select";
 
 interface ModalProps {
   onBackdropClick: () => void;
@@ -16,10 +15,10 @@ interface ModalProps {
 const SettingsModal: React.FC<ModalProps> = ({ onBackdropClick }) => {
   const { postField } = useContext<IContext>(MyContext);
   const [name, setName] = useState({
-    sector: "",
-    row: "",
-    seat: "",
-    price: "",
+    en: "",
+    ru: "",
+    uz: "",
+    link: "",
   });
 
   function changeNamee(e: React.ChangeEvent<HTMLInputElement>) {
@@ -40,34 +39,34 @@ const SettingsModal: React.FC<ModalProps> = ({ onBackdropClick }) => {
         <form>
           <h1>Add support</h1>
           <Input
-            value={name.sector}
-            placeholder="Sector *"
+            value={name.en}
+            placeholder="Name in English*"
             onChange={changeNamee}
-            name="sector"
+            name="en"
           />
           <Input
-            value={name.row}
-            placeholder="Row *"
+            value={name.ru}
+            placeholder="Name in Russia*"
             onChange={changeNamee}
-            name="row"
+            name="ru"
           />
           <Input
-            value={name.seat}
-            placeholder="Seat *"
+            value={name.uz}
+            placeholder="Name in Uzbek*"
             onChange={changeNamee}
-            name="seat"
+            name="uz"
           />
           <Input
-            value={name.price}
-            placeholder="Narxi *"
+            value={name.link}
+            placeholder="Link*"
             onChange={changeNamee}
-            name="price"
+            name="link"
           />
           <div className="button">
           <Button click={() => {handleeSubmit(); onBackdropClick()}} pe={false} typee="button">
               Save
             </Button>
-            <Button typee="submit" pe={true}>
+            <Button typee="button" click={onBackdropClick} pe={true}>
               Cancel
             </Button>
           </div>

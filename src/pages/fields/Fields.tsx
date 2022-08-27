@@ -33,7 +33,6 @@ export default function Fields() {
   }
   const [checked, setChecked] = useState<boolean>(false);
   const handleChange = () => {
-
     if (!checked) {
       for (let i = 0; i < userFiel?.data.length; i++) {
         setList((p) => [...p, userFiel?.data?.[i]._id]);
@@ -45,18 +44,27 @@ export default function Fields() {
 
     setChecked(!checked);
   };
-  // const editItem:any
-  function editInfo() {
-    const editItem = userFiel?.data?.map((item: any) => item?._id === list[0] && item );
-    return editItem
-  }
-  
 
-  // const deleteFields = (id: string) => {
-  //   if (deleteField) {
-  //     deleteField({ id: checkStore });
-  //   }
-  // };
+  const [curent, setCurent] = useState({
+    _id: "",
+    name: {
+      uz: "",
+      ru: "",
+      en: "",
+    },
+  });
+
+  function editInfo() {
+    const index: any = list.map((item, idx) => item && idx);
+    const editItem = userFiel?.data?.map(
+      (item: any) => item?._id === list[0] && item
+    );
+    return editItem;
+  }
+
+  useEffect(() => {
+    console.log(list);
+  }, [list]);
 
   function deleteFields() {
     if (deleteField) {
@@ -69,15 +77,16 @@ export default function Fields() {
       <section className="user--card">
         <div className="first--div">
           <div className="tag--div">
-            <h2>4 Users selected</h2>
+            <h2>{list.length} selected</h2>
           </div>
           <div className="icon--div">
             <div className="icon icon-icon1" onClick={deleteFields}></div>
             <div onClick={toggleModal} className="icon icon-add"></div>
             <div
-              className="icon icon-icon2"
+              className={"" + (list.length === 1 ? "icon icon-icon2" : "")}
               onClick={() => {
-                toggleModal(), editInfo()
+                toggleModal();
+                editInfo();
               }}
             ></div>
           </div>
@@ -106,9 +115,19 @@ export default function Fields() {
                   <input
                     type="checkbox"
                     checked={list.includes(i._id)}
-                    onChange={() => deleteId(i._id)}
+                    onChange={() => {
+                      deleteId(i._id);
+                      setCurent(i);
+                    }}
                   />
-                  <p id="p">{i?.name.uz}</p>
+                  <p
+                    onClick={() => {
+                      toggleModal();
+                    }}
+                    id="p"
+                  >
+                    {i?.name.uz}
+                  </p>
                 </div>
               </div>
               <div className="card--div">
@@ -144,6 +163,7 @@ export default function Fields() {
         isModalVisible={isModalVisible}
         onBackdropClick={toggleModal}
         editInfo={editInfo}
+        user={curent}
       />
     </FieldsStyle>
   );

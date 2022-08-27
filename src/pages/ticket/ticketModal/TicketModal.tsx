@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 import { IContext, MyContext } from "../../../context/Context";
@@ -11,6 +11,8 @@ import Selects from "../../../components/select/Selects";
 
 interface ModalProps {
   onBackdropClick: () => void;
+  editInfo: any;
+  user: any;
 }
 
 export interface IModal {
@@ -19,7 +21,7 @@ export interface IModal {
 }
 
 
-const TicketModal: React.FC<ModalProps> = ({ onBackdropClick }) => {
+const TicketModal: React.FC<ModalProps> = ({ onBackdropClick, editInfo, user }) => {
   const { postField } = useContext<IContext>(MyContext);
   const [name, setName] = useState({
     sector: "",
@@ -31,12 +33,16 @@ const TicketModal: React.FC<ModalProps> = ({ onBackdropClick }) => {
   const arr: IModal[] = [
     {
       id: 1,
-      name: "Fields",
+      name: "VIP",
     },
     {
       id: 2,
-      name: "Position",
-    }
+      name: "PREMIUM",
+    },
+    {
+      id: 3,
+      name: "ECONOM"
+    },
   ]
 
   function changeNamee(e: React.ChangeEvent<HTMLInputElement>) {
@@ -51,12 +57,34 @@ const TicketModal: React.FC<ModalProps> = ({ onBackdropClick }) => {
     }
   }
 
+  
+  useEffect(() => {
+    let index:number = 0
+    for(let i=0; i<editInfo().length; i++){
+      if(editInfo()[i]!==false)
+      index = i;
+    }
+    
+    if (editInfo()[index]?._id) {
+      setName({
+        sector: editInfo()[index]?.name?.sector,
+        row: editInfo()[index]?.name?.row,
+        seat: editInfo()[index]?.name?.seat,
+        price: editInfo()[index]?.name?.price, 
+      });
+    }
+  }, []);
+
+
+
   return ReactDOM.createPortal(
     <div>
       <Styledapp>
         <form>
           <h1>Add Users</h1>
-          <Selects options={arr}/>
+          <Selects
+            placeholder="Category"
+          options={arr}/>
           <Input
             value={name.sector}
             placeholder="Sector *"

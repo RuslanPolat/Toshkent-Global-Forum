@@ -6,16 +6,16 @@ import Button from "../button/Button";
 import MyButton from "../button/MyButton";
 import Input from "../input/Input";
 // import "./assets/style/style.css";
-import Select from "../select/Select";
 import BaseModalWrapper from "./BaseModalWrapper";
 
 interface ModalProps {
   onBackdropClick: () => void;
   editInfo: any;
+  user: any;
 }
 
-const Modal: React.FC<ModalProps> = ({ onBackdropClick, editInfo }) => {
-  const { postPosit } = useContext<IContext>(MyContext);
+const Modal: React.FC<ModalProps> = ({ onBackdropClick, editInfo, user }) => {
+  const { postPosit, putPosition } = useContext<IContext>(MyContext);
   const [name, setName] = useState({
     uz: "",
     ru: "",
@@ -23,13 +23,16 @@ const Modal: React.FC<ModalProps> = ({ onBackdropClick, editInfo }) => {
   });
 
   useEffect(() => {
-    // console.log(editInfo()[0]?.name?.uz);
+    let index: number = 0;
+    for (let i = 0; i < editInfo().length; i++) {
+      if (editInfo()[i] !== false) index = i;
+    }
 
-    if (editInfo()[0]?._id) {
+    if (editInfo()[index]?._id) {
       setName({
-        uz: editInfo()[0]?.name?.uz,
-        ru: editInfo()[0]?.name?.ru,
-        en: editInfo()[0]?.name?.en,
+        uz: editInfo()[index]?.name?.uz,
+        ru: editInfo()[index]?.name?.ru,
+        en: editInfo()[index]?.name?.en,
       });
     }
   }, []);
@@ -41,20 +44,26 @@ const Modal: React.FC<ModalProps> = ({ onBackdropClick, editInfo }) => {
   }
 
   function handleSubmit() {
-    if (postPosit) {
-      postPosit(name);
+    if (user?.name.uz === "") {
+      if (postPosit) {
+        postPosit(name);
+      }
+    } else {
+      const _id = user?._id;
+      if (putPosition) {
+        putPosition({ _id, name });
+      }
     }
-    setName({
-      uz: "",
-      ru: "",
-      en: "",
-    });
+    // setName({
+    //   uz: "",
+    //   ru: "",
+    //   en: "",
+    // });
     // onBackdropClick()
-
   }
 
-  return ReactDOM.createPortal( 
-    <div >
+  return ReactDOM.createPortal(
+    <div>
       <Styledapp>
         <form>
           <h1>Add Position</h1>
@@ -83,10 +92,17 @@ const Modal: React.FC<ModalProps> = ({ onBackdropClick, editInfo }) => {
             <MyButton stylee={true} onClick={() => onBackdropClick} click={() => onBackdropClick}>
               Close
             </MyButton> */}
-            <Button click={() => {handleSubmit(); onBackdropClick()}} pe={false} typee="button">
-              Save 
+            <Button
+              click={() => {
+                handleSubmit();
+                onBackdropClick();
+              }}
+              pe={false}
+              typee="button"
+            >
+              Save
             </Button>
-            <Button typee="submit" pe={true}>
+            <Button typee="button" click={onBackdropClick} pe={true}>
               Cancel
             </Button>
           </div>

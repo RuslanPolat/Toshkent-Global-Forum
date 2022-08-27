@@ -5,7 +5,6 @@ import Button from '../button/Button';
 import MyButton from "../button/MyButton";
 import Input from '../input/Input';
 // import "./assets/style/style.css";
-import Select from '../select/Select';
 
 
 
@@ -23,10 +22,8 @@ export default function ModalCard() {
         <h1>Add user</h1>
         {/* <Input placeholder="Full name *" />
         <Input placeholder="Phone number *" /> */}
-        <Select />
         {/* <Input placeholder="Brand" />
         <Input placeholder="Employee count" /> */}
-        <Select />
         <div className="buton">
           {/* <Button  pe={false} typee="button">
             Save

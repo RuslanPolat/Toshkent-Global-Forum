@@ -1,7 +1,9 @@
 import axios from "axios";
 
+import {CONSTS} from '../../utils/consts'
+
 export const myAxios = axios.create({
-  baseURL: "http://tgf.kahero.uz/admin-api",
+  baseURL: CONSTS.BASE_URL,
   headers: {
     Authorization: `Bearer ${localStorage.getItem("TOKEN")}`
   }

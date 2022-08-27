@@ -1,36 +1,90 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 import { IContext, MyContext } from "../../../context/Context";
 import Button from "../../../components/button/Button";
-// import Button from "../button/Button";
-import MyButton from "../../../components/button/MyButton";
 import Input from "../../../components/input/Input";
-// import "./assets/style/style.css";
-import Select from "../../../components/select/Select";
 
 interface ModalProps {
   onBackdropClick: () => void;
+  editInfo: any;
+  user: any;
 }
 
-const SpicersModal: React.FC<ModalProps> = ({ onBackdropClick }) => {
-  const { postField } = useContext<IContext>(MyContext);
+const SpicersModal: React.FC<ModalProps> = ({ onBackdropClick, editInfo, user }) => {
+  const { postSpicers, putSpecers } = useContext<IContext>(MyContext);
+  const [bioname, setBioName] = useState({
+      uz: "",
+      ru: "",
+      en: "",
+  })
+
   const [name, setName] = useState({
-    sector: "",
-    row: "",
-    seat: "",
-    price: "",
+      uz: "",
+      ru: "",
+      en: "",
   });
+
+  const [img, setImage] = useState({
+      image: "https://www.google.com/imgres?imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F5%2F5b%2FSt_Mary%2527s_Church%252C_Castle_Street_1.jpg&imgrefurl=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FTown&tbnid=WezSpnlkJBvXNM&vet=12ahUKEwix-Lup8dz5AhVCmosKHRK8AZUQMygAegUIARC9AQ..i&docid=Hyl4yZiJw9E9uM&w=640&h=480&q=town&ved=2ahUKEwix-Lup8dz5AhVCmosKHRK8AZUQMygAegUIARC9AQ"
+    });
+
+
+    useEffect(() => {
+      let index:number = 0
+      for(let i=0; i<editInfo().length; i++){
+        if(editInfo()[i]!==false)
+        index = i;
+      }
+      
+      if (editInfo()[index]?._id) {
+        setName({
+          uz: editInfo()[index]?.name?.uz,
+          ru: editInfo()[index]?.name?.ru,
+          en: editInfo()[index]?.name?.en, 
+        });
+      }
+
+      if (editInfo()[index]?._id) {
+        setBioName({
+          uz: editInfo()[index]?.bio?.uz,
+          ru: editInfo()[index]?.bio?.ru,
+          en: editInfo()[index]?.bio?.en, 
+        });
+      }
+    }, []);
+
 
   function changeNamee(e: React.ChangeEvent<HTMLInputElement>) {
     const { value, name } = e.target;
 
-    setName((p) => ({ ...p, [name]: value }));
+    setName((p) => ({ ...p, [name]: value  }));
+  }
+
+  function changeName(e: React.ChangeEvent<HTMLInputElement>) {
+    const { value, name } = e.target;
+
+    setBioName((p) => ({ ...p, [name]: value  }));
   }
 
   function handleeSubmit() {
-    if (postField) {
-    //   postField(name);
+    if(user?.name === "")
+    // if(user?.bioname.uz === "")
+    {
+      if (postSpicers) {
+        postSpicers({
+          name,
+          bio:bioname,
+          image:"some img"
+        })
+      }
+    }
+    else {
+      const __id = user?.__id;
+      if(putSpecers) {
+        putSpecers({__id, name, bioname})
+        console.log(__id, name, bioname);
+      }
     }
   }
 
@@ -40,46 +94,56 @@ const SpicersModal: React.FC<ModalProps> = ({ onBackdropClick }) => {
         <form>
           <h1>Add Speaker</h1>
           <Input
-            value={name.sector}
-            placeholder="Sector *"
+            value={name.en}
+            placeholder="Name in English*"
             onChange={changeNamee}
-            name="sector"
+            name="en"
+            setName={setName}
           />
           <Input
-            value={name.row}
-            placeholder="Row *"
+            value={name.ru}
+            placeholder="Name in Russian*"
             onChange={changeNamee}
-            name="row"
+            name="ru"
+            setName={setName}
           />
           <Input
-            value={name.seat}
-            placeholder="Seat *"
+            value={name.uz}
+            placeholder="Name in Uzbek*"
             onChange={changeNamee}
-            name="seat"
+            name="uz"
+            setName={setName}
           />
           <Input
-            value={name.price}
-            placeholder="Narxi *"
-            onChange={changeNamee}
-            name="price"
+            value={bioname.en}
+            placeholder="Bio in English*"
+            onChange={changeName}
+            name="en"
           />
-           <Input
-            value={name.price}
-            placeholder="Narxi *"
-            onChange={changeNamee}
-            name="price"
+          <Input
+            value={bioname.ru}
+            placeholder="Bio in Russia*"
+            onChange={changeName}
+            name="ru"
           />
-            <Input
-            value={name.price}
-            placeholder="Narxi *"
-            onChange={changeNamee}
-            name="price"
+          <Input
+            value={bioname.uz}
+            placeholder="Bio in Uzbek*"
+            onChange={changeName}
+            name="uz"
           />
           <div className="button">
-          <Button click={() => {handleeSubmit(); onBackdropClick()}} pe={false} typee="button">
+            <Button
+              click={() => {
+                handleeSubmit();
+                onBackdropClick();
+              }}
+              pe={false}
+              typee="button"
+            >
               Save
             </Button>
-            <Button  typee="button" click={onBackdropClick} pe={true}>
+            <Button typee="button" click={onBackdropClick} pe={true}>
               Cancel
             </Button>
           </div>

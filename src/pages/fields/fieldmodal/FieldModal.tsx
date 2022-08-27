@@ -12,10 +12,11 @@ import Input from "../../../components/input/Input";
 interface ModalProps {
   onBackdropClick: () => void;
   editInfo: any;
+  user: any;
 }
 
-const FieldModal: React.FC<ModalProps> = ({ onBackdropClick, editInfo }) => {
-  const { postField } = useContext<IContext>(MyContext);
+const FieldModal: React.FC<ModalProps> = ({ onBackdropClick, editInfo, user }) => {
+  const { postField, putField } = useContext<IContext>(MyContext);
   const [name, setName] = useState({
     uz: "",
     ru: "",
@@ -23,13 +24,17 @@ const FieldModal: React.FC<ModalProps> = ({ onBackdropClick, editInfo }) => {
   });
 
   useEffect(() => {
-    // console.log(editInfo()[0]?.name?.uz);
-
-    if (editInfo()[0]?._id) {
+    let index:number = 0
+    for(let i=0; i<editInfo().length; i++){
+      if(editInfo()[i]!==false)
+      index = i;
+    }
+    
+    if (editInfo()[index]?._id) {
       setName({
-        uz: editInfo()[0]?.name?.uz,
-        ru: editInfo()[0]?.name?.ru,
-        en: editInfo()[0]?.name?.en,
+        uz: editInfo()[index]?.name?.uz,
+        ru: editInfo()[index]?.name?.ru,
+        en: editInfo()[index]?.name?.en, 
       });
     }
   }, []);
@@ -40,10 +45,20 @@ const FieldModal: React.FC<ModalProps> = ({ onBackdropClick, editInfo }) => {
     setName((p) => ({ ...p, [name]: value }));
   }
 
+
+
   function handleeSubmit() {
-    if (postField) {
-      postField(name);
-    }
+      if(user?.name.uz === "") {
+        if (postField) {
+          postField(name);
+        }
+      }
+      else {
+        const _id = user?._id;
+        if (putField) {
+          putField({_id, name});
+        }
+      }
   }
 
   return ReactDOM.createPortal(
@@ -56,18 +71,21 @@ const FieldModal: React.FC<ModalProps> = ({ onBackdropClick, editInfo }) => {
             placeholder="Name in uz*"
             onChange={changeNamee}
             name="uz"
+            setName={setName}
           />
           <Input
             value={name.ru}
             placeholder="Name in ru*"
             onChange={changeNamee}
             name="ru"
+            setName={setName}
           />
           <Input
             value={name.en}
             placeholder="Name in en*"
             onChange={changeNamee}
             name="en"
+            setName={setName}
           />
 
           <div className="button">

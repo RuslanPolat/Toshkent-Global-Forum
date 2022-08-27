@@ -7,8 +7,8 @@ import Button from "../../../components/button/Button";
 import MyButton from "../../../components/button/MyButton";
 import Input from "../../../components/input/Input";
 // import "./assets/style/style.css";
-import Select from "../../../components/select/Select";
 import Selects from "../../../components/select/Selects";
+import { type } from "os";
 
 interface ModalProps {
   onBackdropClick: () => void;
@@ -19,26 +19,29 @@ export interface IModal {
   name: string;
 }
 
-
 const arr: IModal[] = [
   {
     id: 1,
-    name: "Fields",
+    name: "Activity",
   },
-  {
-    id: 2,
-    name: "Position",
-  }
-]
+];
 
 const AgendaModal: React.FC<ModalProps> = ({ onBackdropClick }) => {
-  const { postField } = useContext<IContext>(MyContext);
+  const { postAgenda } = useContext<IContext>(MyContext);
   const [name, setName] = useState({
-    sector: "",
-    row: "",
-    seat: "",
-    price: "",
+    en: "",
+    ru: "",
+    uz: "",
   });
+
+  const [typee, setType] = useState({
+    starttime: "2022:25",
+    endtime: "20225:25",
+  });
+
+  const [activy, setActivy] = useState({
+    type:"activity"
+  })
 
   function changeNamee(e: React.ChangeEvent<HTMLInputElement>) {
     const { value, name } = e.target;
@@ -46,9 +49,21 @@ const AgendaModal: React.FC<ModalProps> = ({ onBackdropClick }) => {
     setName((p) => ({ ...p, [name]: value }));
   }
 
+  function changeName(e: React.ChangeEvent<HTMLInputElement>) {
+    const { value, name } = e.target;
+
+    setType((p) => ({ ...p, [name]: value }));
+  }
+
+
   function handleeSubmit() {
-    if (postField) {
-    //   postField(name);
+    if (postAgenda) {
+      postAgenda({
+        name, 
+        type:"avtivity",
+        startTime: "2022-25",
+        endTime: "2022-25",
+      });
     }
   }
 
@@ -57,43 +72,54 @@ const AgendaModal: React.FC<ModalProps> = ({ onBackdropClick }) => {
       <Styledapp>
         <form>
           <h1>Add Users</h1>
-          <Selects options={arr}/>
+          <Selects
+            placeholder="Type Speaker or Activity"
+          options={arr} />
           <Input
-            value={name.sector}
-            placeholder="Sector *"
+            value={name.en}
+            placeholder="Name in English*"
             onChange={changeNamee}
-            name="sector"
-          />
-          <Input
-            value={name.row}
-            placeholder="Row *"
-            onChange={changeNamee}
-            name="row"
+            name="en"
           />
           <Input
-            value={name.seat}
-            placeholder="Seat *"
+            value={name.ru}
+            placeholder="Name in Russia *"
             onChange={changeNamee}
-            name="seat"
+            name="ru"
           />
           <Input
-            value={name.price}
-            placeholder="Narxi *"
+            value={name.uz}
+            placeholder="Name in Uzbek*"
             onChange={changeNamee}
-            name="price"
+            name="uz"
           />
-           <Input
-            value={name.price}
-            placeholder="Narxi *"
-            onChange={changeNamee}
-            name="price"
+          <Input
+            value={typee.starttime}
+            placeholder="Star Time*"
+            onChange={changeName}
+            name="starttime"
           />
-           <Selects options={arr}/>
+          <Input
+            value={typee.endtime}
+            placeholder="End Time *"
+            onChange={changeName}
+            name="endtime"
+          />
+          <Selects 
+          placeholder="Speaker"
+          options={arr} />
           <div className="button">
-          <Button click={() => {handleeSubmit(); onBackdropClick()}} pe={false} typee="button">
+            <Button
+              click={() => {
+                handleeSubmit();
+                onBackdropClick();
+              }}
+              pe={false}
+              typee="button"
+            >
               Save
             </Button>
-            <Button typee="submit" pe={true}>
+            <Button typee="button" click={onBackdropClick} pe={true}>
               Cancel
             </Button>
           </div>

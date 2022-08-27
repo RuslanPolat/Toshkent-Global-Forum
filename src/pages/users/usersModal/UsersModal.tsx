@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 import { IContext, MyContext } from "../../../context/Context";
@@ -8,9 +8,12 @@ import MyButton from "../../../components/button/MyButton";
 import Input from "../../../components/input/Input";
 // import "./assets/style/style.css";
 import Selects from "../../../components/select/Selects";
+import { error } from "console";
 
 interface ModalProps {
   onBackdropClick: () => void;
+  editInfo: any;
+  user: any;
 }
 
 export interface IModal {
@@ -19,25 +22,27 @@ export interface IModal {
 }
 
 
-const UsersModal: React.FC<ModalProps> = ({ onBackdropClick }) => {
-  const { postField } = useContext<IContext>(MyContext);
+const UsersModal: React.FC<ModalProps> = ({ onBackdropClick, editInfo, user }) => {
+  const { postField, userPosit, userFiel, getField, getPosition, postUser } = useContext<IContext>(MyContext);
   const [name, setName] = useState({
-    sector: "",
-    row: "",
-    seat: "",
-    price: "",
+    fullName: "",
+    phoneNumber: "",
+    fieldId: "",
+    brand: "",
+    employeeCount: 1,
+    positionId: "",
   });
 
-  const arr: IModal[] = [
-    {
-      id: 1,
-      name: "Fields",
-    },
-    {
-      id: 2,
-      name: "Position",
-    }
-  ]
+  // const arr: IModal[] = [
+  //   {
+  //     id: 1,
+  //     name: "Fields",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Position",
+  //   }
+  // ]
 
   function changeNamee(e: React.ChangeEvent<HTMLInputElement>) {
     const { value, name } = e.target;
@@ -45,9 +50,46 @@ const UsersModal: React.FC<ModalProps> = ({ onBackdropClick }) => {
     setName((p) => ({ ...p, [name]: value }));
   }
 
+  // useEffect(() => {
+  //   let index:number = 0
+  //   for(let i=0; i<editInfo().length; i++){
+  //     if(editInfo()[i]!==false)
+  //     index = i;
+  //   }
+    
+  //   if (editInfo()[index]?._id) {
+  //     setName({
+  //       fullname: editInfo()[index]?.name?.fullname,
+  //       phonenumber: editInfo()[index]?.name?.phonenumber,
+  //       brand: editInfo()[index]?.name?.brand,
+  //       employeecount: editInfo()[index]?.name?.employeecount, 
+  //     });
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    if(getField) getField();
+    if(getPosition) getPosition();
+    console.log(setName);
+    
+  }, [])
+
+
   function handleeSubmit() {
-    if (postField) {
-    //   postField(name);
+    if (postUser) {
+      // let cout = Number(name.employeecount);
+      // setName((p) => ({...p, employeecount:cout}))
+      postUser(
+        name
+        )
+      }
+      // if(user?.name.uz === "") {
+    // }
+    else {
+      const __id = user?.__id;      
+      // if(putSpecers) {
+      //   putSpecers({__id, name, bioname})
+      // }
     }
   }
 
@@ -57,31 +99,41 @@ const UsersModal: React.FC<ModalProps> = ({ onBackdropClick }) => {
         <form>
           <h1>Add Users</h1>
           <Input
-            value={name.sector}
-            placeholder="Sector *"
+            value={name.fullName}
+            placeholder="Full Name*"
             onChange={changeNamee}
-            name="sector"
+            name="fullName"
           />
           <Input
-            value={name.row}
-            placeholder="Row *"
+            value={name.phoneNumber}
+            placeholder="phone number *"
             onChange={changeNamee}
-            name="row"
+            name="phoneNumber"
           />
-           <Selects options={arr} />
+           <Selects
+            usersData={userFiel}
+            placeholder="Fields"
+            setName={setName}
+            // options={userFiel}
+           />
           <Input
-            value={name.seat}
-            placeholder="Seat *"
+            value={name.brand}
+            placeholder="Brand *"
             onChange={changeNamee}
-            name="seat"
+            name="brand"
           />
           <Input
-            value={name.price}
-            placeholder="Narxi *"
+            value={name.employeeCount}
+            placeholder="Employee Count *"
             onChange={changeNamee}
-            name="price"
+            name="employeeCount"
           />
-           <Selects options={arr}/>
+           <Selects 
+           usersData={userPosit}
+            placeholder="Position"
+            setName={setName}
+          //  options={userPosit}
+           />
           <div className="button">
           <Button click={() => {handleeSubmit(); onBackdropClick()}} pe={false} typee="button">
               Save

@@ -2,21 +2,33 @@ import React from "react";
 import styled from "styled-components";
 
 interface IInput {
-  value: string;
+  value?: string | number;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   type?: string;
-  name: string;
+  name?: string;
+  setName?: React.Dispatch<any>;
 }
-
 
 export default function Input({
   value,
   placeholder,
   onChange,
   type = "text",
-  name
+  name,
+  setName,
 }: IInput) {
+
+  function clearClick() {
+    if (setName) {
+      name === "uz"
+        ? setName((p: {}) => ({ ...p, uz: "" }))
+        : name === "ru"
+        ? setName((p: {}) => ({ ...p, ru: "" }))
+        : setName((p: {}) => ({ ...p, en: "" }));
+    }
+  };
+
   return (
     <StyledInput>
       <div className="div">
@@ -27,7 +39,7 @@ export default function Input({
           onChange={onChange}
           name={name}
         />
-        <div className="icon icon-clear"></div>
+        <div onClick={() => clearClick()} className="icon icon-clear"></div>
       </div>
     </StyledInput>
   );

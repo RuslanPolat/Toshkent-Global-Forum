@@ -22,10 +22,22 @@ export interface IContext {
   userLogin?: () => Response;
   getPosition?: () => Promise<void>;
   getField?: () => Promise<void>;
+  getSpicers?: () => Promise<void>;
+  getAgenda?: () => Promise<void>;
+  getUsers?: () => Promise<void>;
+  getTicket?: () => Promise<void>;
   deletePosit?: any;
+  deleteSpicers?: Function;
   deleteField?: Function;
+  deleteAgenda?: Function;
+  deleteTicket?: Function;
+  deleteUser?: Function;
   userPosit?: any;
   userFiel?: any;
+  userSpicers?: any;
+  userAgenda?: any;
+  userUsers?: any;
+  userTicket?: any;
   postPosit?: (name: {
     uz: string;
     ru: string;
@@ -36,6 +48,13 @@ export interface IContext {
     ru: string;
     en: string;
   }) => Promise<void> | undefined;
+  putField?: Function;
+  putPosition?: Function;
+  putSpecers?: Function;
+  postSpicers?: (body: any
+  ) => Promise<void> | undefined;
+  postAgenda?: (body: any) => Promise<void> | undefined;
+  postUser?: (body: any) => Promise<void> | undefined;
 }
 
 export interface IRes {
@@ -59,13 +78,56 @@ export interface IPosit {
 
 export interface IDate {
   _id: string;
+  phoneNumber: string;
+  fullName: string;
+  fieldId: string;
+  brand: string;
+  employeeCount: number;
+  positionId: string;
+  category: string;
+  sector: string;
+  row: string;
+  seat: string;
+  price: number;
+  occupied: boolean;
+
+  field: {
+    _id: string;
+    name: {
+      uz: string;
+      en: string;
+      ru: string;
+    },
+    __v: number;
+  },
+  position: {
+    _id: string;
+    name: {
+      uz: string;
+      en: string;
+      ru: string;
+    },
+    __v: number;
+  },
   name: {
     uz: string;
     en: string;
     ru: string;
-  };
+  },
+  bio: {
+    en: string;
+    ru: string;
+    uz: string;
+  },
+  image: string;
+  type: string;
+  startTime: string;
+  endTime: string
   __v: number;
 }
+
+
+
 
 export interface IUser {
   password: string;
@@ -84,8 +146,19 @@ export default function Context({ children }: any) {
   });
 
   const [userPosit, setUserPosit] = useState<IPosit[]>([]);
-
   const [userFiel, setUserField] = useState<any[]>([]);
+  const [userSpicers, setUserSpicers] = useState<any[]>([]);
+  const [userAgenda, setUserAgenda] = useState<any[]>([]);
+  const [userUsers, setUsers] = useState<any[]>([]);
+  const [userTicket, setTicket] = useState<any[]>([]);
+
+  function sucsessSpicers(res: IPosit[]) {
+    setUserSpicers(res);
+  }
+
+  function sucsessUsers(res: IPosit[]) {
+    setUsers(res);
+  }
 
   function sucsessPosit(res: IPosit[]) {
     setUserPosit(res);
@@ -94,6 +167,17 @@ export default function Context({ children }: any) {
   function sucsessField(res: IPosit[]) {
     setUserField(res);
   }
+
+  function sucsessAgenda(res: IPosit[]) {
+    setUserAgenda(res);
+  }
+
+  function sucsessTicket(res: IPosit[]) {
+    setTicket(res);
+  }
+
+
+  // Position Page API
 
   async function getPosition() {
     try {
@@ -106,6 +190,16 @@ export default function Context({ children }: any) {
     }
   }
 
+
+  async function putPosition(user: {}) {
+    try {
+      const res = await myAxios.put("/position", user);
+      getPosition();
+    } catch (error) {
+      console.log("Put Position ishlamadi !");
+    } 
+  }
+
   async function deletePosit(ids: {}) {
     try {
       const res = await myAxios.delete("/position", { data: ids });
@@ -116,6 +210,17 @@ export default function Context({ children }: any) {
     }
   }
 
+  async function postPosit(name: any) {
+    try {
+      const res = await myAxios.post("/position", { name });
+      getPosition();
+      console.log(res);
+    } catch (error) {
+      console.log("Post Position ishlamadi !");
+    }
+  }
+
+  // Field Page API
 
   async function deleteField(ids: {}) {
     try {
@@ -128,14 +233,13 @@ export default function Context({ children }: any) {
   }
 
 
-  async function postPosit(name: any) {
+  async function putField(user: {}) {
     try {
-      const res = await myAxios.post("/position", { name });
-      getPosition();
-      console.log(res);
+      const res = await myAxios.put("/field", user);
+      getField();
     } catch (error) {
-      console.log("Post Position ishlamadi !");
-    }
+      console.log("Put Field ishlamadi !");
+    } 
   }
 
   async function getField() {
@@ -145,7 +249,7 @@ export default function Context({ children }: any) {
       console.log(res);
     } catch (error) {
       console.log(error);
-      console.log("Position Ishlamadi");
+      console.log("Field Ishlamadi");
     }
   }
 
@@ -158,6 +262,143 @@ export default function Context({ children }: any) {
       console.log("Post Feild ishlamadi !");
     }
   }
+  
+
+  // Speaker Page API
+  
+  async function getSpicers() {
+    try {
+      const res = await myAxios.get("/speaker");
+      sucsessSpicers(res.data.data);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+      console.log("Speacer Ishlamadi");
+    }
+  }
+
+  async function deleteSpicers(ids: {}) {
+    try {
+      const res = await myAxios.delete("/speaker", { data: ids });
+      getSpicers();
+    } catch (error) {
+      console.log(error);
+      console.log("Delete Speakerda xato");
+    }
+  }
+
+  async function postSpicers(body:any) {
+    try {
+      const res = await myAxios.post("/speaker", body );
+      getSpicers();
+      console.log(res);
+    } catch (error) {
+      console.log("Post Spicers ishlamadi !");
+    }
+  }
+
+  async function putSpecers(user: {}) {
+    try {
+      const res = await myAxios.put("/speaker", user);
+      getSpicers();
+    } catch (error) {
+      console.log("Put Speaker ishlamadi !");
+    } 
+  }
+  
+
+  // Agenda PAge API
+
+  async function getAgenda() {
+    try {
+      const res = await myAxios.get("/agenda");
+      sucsessAgenda(res.data.data);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+      console.log("Agenda Ishlamadi");
+    }
+  }
+
+  async function deleteAgenda(ids: {}) {
+    try {
+      const res = await myAxios.delete("/agenda", { data: ids });
+      getAgenda();
+    } catch (error) {
+      console.log(error);
+      console.log("Delete Agenda xato");
+    }
+  }
+
+  async function postAgenda(body:any) {
+    try {
+      const res = await myAxios.post("/agenda", body );
+      getAgenda();
+      console.log(res);
+    } catch (error) {
+      console.log("Post Agenda ishlamadi !");
+    }
+  }
+  
+
+  // Users Page API 
+
+  async function getUsers() {
+    try {
+      const res = await myAxios.get("/user?page=1&limit=10");
+      sucsessUsers(res.data.data);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+      console.log("Users Ishlamadi");
+    }
+  }
+
+  async function deleteUser(ids: {}) {
+    try {
+      const res = await myAxios.delete("/user", { data: ids });
+      getUsers();
+    } catch (error) {
+      console.log(error);
+      console.log("Delete User xato");
+    }
+  }
+
+  async function postUser(body:any) {
+    try {
+      const res = await myAxios.post("/user", body );
+      getUsers();
+      console.log(res);
+    } catch (error) {
+      console.log("Post User ishlamadi !");
+    }
+  }
+
+  // Ticet Page APi 
+
+  async function getTicket() {
+    try {
+      const res = await myAxios.get("/ticket?page=1&limit=10");
+      sucsessTicket(res.data.data);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+      console.log("Ticket Ishlamadi");
+    }
+  }
+
+  async function deleteTicket(ids: {}) {
+    try {
+      const res = await myAxios.delete("/ticket", { data: ids });
+      getTicket();
+    } catch (error) {
+      console.log(error);
+      console.log("Delete Ticket xato");
+    }
+  }
+
+
+  // ======
 
   function sucsess(res: IRes) {
     setAuth((p) => ({
@@ -188,15 +429,33 @@ export default function Context({ children }: any) {
       value={{
         auth,
         setAuth,
-        userLogin,
         getPosition,
         getField,
+        userLogin,
         userPosit,
         postPosit,
         postField,
+        postAgenda,
+        postUser,
         userFiel,
+        userSpicers,
+        userAgenda,
+        userUsers,
+        userTicket,
         deletePosit,
         deleteField,
+        putField,
+        putPosition,
+        getSpicers,
+        postSpicers,
+        deleteSpicers,
+        deleteAgenda,
+        deleteTicket,
+        deleteUser,
+        putSpecers,
+        getAgenda,
+        getUsers,
+        getTicket,
       }}
     >
       {children}

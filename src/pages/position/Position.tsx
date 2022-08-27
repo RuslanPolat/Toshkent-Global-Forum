@@ -28,6 +28,15 @@ export default function Position() {
   };
 
 
+  const [curent, setCurent] = useState({
+    _id: "",
+    name: {
+      uz: "",
+      ru: "",
+      en: "",
+    },
+  });
+
   const [checked, setChecked] = useState<boolean>(false);
   const handleChange = () => {
 
@@ -44,7 +53,8 @@ export default function Position() {
   };
 
   function editInfo() {
-    const editItem = userPosit?.data?.map((item: any) => item?._id === list[0] && item );
+    const index:any = list.map((item, idx)=> item && idx)
+    const editItem = userPosit?.data?.map((item: any) =>  item?._id === list[0] && item  );
     return editItem
   }
 
@@ -68,14 +78,14 @@ export default function Position() {
        <section className="user--card">
         <div className="first--div">
           <div className="tag--div">
-            <h2>4 Users selected</h2>
+            <h2>{list.length} selected</h2>
           </div>
               <div className="icon--div">
                 <div onClick={deletePosition} className="icon icon-icon1"></div>
                 <div onClick={toggleModal} className="icon icon-add"></div>
-                <div className="icon icon-icon2" 
+                <div  className={"" + (list.length === 1 ? "icon icon-icon2" : "")} 
                    onClick={() => {
-                    toggleModal(), editInfo()
+                    toggleModal(); editInfo()
                   }}
                 ></div>
               </div>
@@ -106,7 +116,7 @@ export default function Position() {
                 <div className="expand">
                   <input type="checkbox"
                     checked={list.includes(i._id)} 
-                   onChange={ () => deleteId(i._id)
+                   onChange={ () => {deleteId(i._id); setCurent(i)}
                   }
                   />
                   <p id="p">{i?.name.uz}</p>
@@ -144,6 +154,7 @@ export default function Position() {
         isModalVisible={isModalVisible}
         onBackdropClick={toggleModal}
         editInfo={editInfo}
+        user={curent}
       />
     </PositionStyled>
   );

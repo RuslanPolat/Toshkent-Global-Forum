@@ -21,43 +21,61 @@ export default function Sidebar() {
         <img src={userAvatar} alt="UserAvatar" />
       </div>
       <div className={"icon__wrapper" + (location === "/fields" ? " On" : "")}>
+       <Link to={"/fields"}>
         <div className="icon icon-fields"></div>
         <p><Link to={"/fields"}>Fields</Link></p>
+       </Link>
       </div>
       <div className={"icon__wrapper" + (location === "/position" ? " On" : "")}>
-        <div className="icon icon-positions"></div>
+        <Link to={"/position"}>
+         <div className="icon icon-positions"></div>
          <p><Link to={"/position"}>Positions</Link></p>
+        </Link> 
       </div>
       <div className={"icon__wrapper" + (location === "/ticket" ? " On" : "")}>
-        <div className="icon icon-ticket"></div>
+        <Link to={"/ticket"}>
+         <div className="icon icon-ticket"></div>
          <p><Link to={"/ticket"}>Biletlar</Link></p>
+        </Link>
       </div>
       <div className={"icon__wrapper" + (location === "/foydalanuvchilar" ? " On" : "")}>
-        <div className="icon icon-users"></div>
-         <p><Link to={"/foydalanuvchilar"}>Users</Link></p>
+        <Link to={"/foydalanuvchilar"}>
+          <div className="icon icon-users"></div>
+           <p><Link to={"/foydalanuvchilar"}>Users</Link></p>
+        </Link>
       </div>
       <div className={"icon__wrapper" + (location === "/agenda" ? " On" : "")}>
-        <div className="icon icon-agenda"></div>
-         <p><Link to={"/agenda"}>Aganda</Link></p>
+        <Link to={"/agenda"}>
+          <div className="icon icon-agenda"></div>
+          <p><Link to={"/agenda"}>Aganda</Link></p>
+        </Link>
       </div>
       <div className={"icon__wrapper" + (location === "/spikerlar" ? " On" : "")}>
-        <div className="icon icon-speaker"></div>
+        <Link to={"/spikerlar"}>
+         <div className="icon icon-speaker"></div>
          <p><Link to={"/spikerlar"}>Spikerlar</Link></p>
+        </Link>
       </div>
       <div className={"icon__wrapper" + (location === "/comments" ? " On" : "")}>
-        <div className="icon icon-comments"></div>
-         <p><Link to={"/comments"}>Comments</Link></p>
+        <Link to={"/comments"}>
+          <div className="icon icon-comments"></div>
+          <p><Link to={"/comments"}>Comments</Link></p>
+        </Link>
       </div>
       <div className={"icon__wrapper" + (location === "/settings" ? " On" : "")}>
-        <div className="icon icon-settings"></div>
-         <p><Link to={"/settings"}>Settings</Link></p>
+        <Link to={"/settings"}> 
+         <div className="icon icon-settings"></div>
+          <p><Link to={"/settings"}>Settings</Link></p>
+        </Link>
       </div>
       {/* <div className={"icon__wrapper" + (location === "/users" ? " On" : "")}>
         <div className="icon icon-users">User</div>
       </div> */}
       <div  onClick={pageOut} id="out" className="icon__wrapper">
+         <Link to={"/login"}>
           <div className="icon icon-out"></div>
           <p>Exit</p>
+         </Link>
       </div>
     </StyledSidebar>
   );
@@ -97,9 +115,14 @@ const StyledSidebar = styled.div`
     justify-content: center;
     margin: 0 auto;
     cursor: pointer;
-    p {
-      padding-top: 17px;
-      padding-left: 5px;
+    a {
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      p {
+      padding-top: 15px;
       font-size: 15px;
       line-height: 1px;
       color: #8992a9;
@@ -111,19 +134,25 @@ const StyledSidebar = styled.div`
         color: #8992a9;
       }
     }
+    }
 
     &.On {
-      /* background: #e3ebff; */
       color: #fff;
-      
+      background-color: #E3EBFF;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       a {
         border-radius: 16px;
-        padding: 2px;
-        padding-top: 0;
-        color: #3b72ff;
-        background-color:#E3EBFF;
+        color: royalblue;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
-      .icon .icon--layout {
+      .icon{
+        background: royalblue;
       }
     }
 

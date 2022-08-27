@@ -44,6 +44,7 @@ export const FieldsStyle = styled.div`
     gap: 5px;
     align-items: flex-start;
     color: #8992a9;
+    cursor: pointer;
 
     input {
       width: 22px;
@@ -58,6 +59,7 @@ export const FieldsStyle = styled.div`
       font-size: 14px;
       line-height: 17px;
       color: #8992a9;
+      cursor: pointer;
     }
   }
   footer {
@@ -93,6 +95,7 @@ export const FieldsStyle = styled.div`
   }
   #p {
     color: #000;
+    cursor: pointer;
   }
 
   .grid--div {
