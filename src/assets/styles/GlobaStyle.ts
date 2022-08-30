@@ -10,4 +10,8 @@ export const GlobalStyle = styled.div`
         margin: 0px;
         padding: 0;
     }
+    p {
+        cursor: pointer !important;
+
+    }
 `

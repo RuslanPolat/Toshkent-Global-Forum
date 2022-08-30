@@ -72,7 +72,7 @@ export default function Foydalanuvchilar() {
       <section className="user--card">
         <div className="first--div">
           <div className="tag--div">
-            <h2>{list.length} selected</h2>
+          <h2>{list.length === 0 ? "" : list.length + " selected"}</h2>
           </div>
           <div className="icon--div">
             <div onClick={deleteUsers} className="icon icon-icon1"></div>
@@ -115,7 +115,12 @@ export default function Foydalanuvchilar() {
                       // setCurent(i);
                     }}
                   />
-                  <p id="p">{i?.phoneNumber}</p>
+                  <p   onClick={() => {
+                      toggleModal();
+                      deleteId(i._id);
+                      // setCurent(i);
+                      editInfo();
+                    }} id="p">{i?.phoneNumber}</p>
                 </div>
               </div>
               <div className="card--div">

@@ -1,18 +1,17 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-// user default Avatar icon
 import userAvatar from "../../assets/images/userAvatarIcon.png";
 import Fields from "../../pages/fields/Fields";
 
 export default function Sidebar() {
   const location: string = useLocation().pathname;
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   function pageOut() {
     localStorage.removeItem("TOKEN");
     localStorage.removeItem("ISAUTH");
-    navigate("/login")
+    navigate("/login");
   }
 
   return (
@@ -21,61 +20,62 @@ export default function Sidebar() {
         <img src={userAvatar} alt="UserAvatar" />
       </div>
       <div className={"icon__wrapper" + (location === "/fields" ? " On" : "")}>
-       <Link to={"/fields"}>
-        <div className="icon icon-fields"></div>
-        <p><Link to={"/fields"}>Fields</Link></p>
-       </Link>
+        <Link to={"/fields"}>
+          <div className="icon icon-fields"></div>
+        </Link>
       </div>
-      <div className={"icon__wrapper" + (location === "/position" ? " On" : "")}>
+      <div
+        className={"icon__wrapper" + (location === "/position" ? " On" : "")}
+      >
         <Link to={"/position"}>
-         <div className="icon icon-positions"></div>
-         <p><Link to={"/position"}>Positions</Link></p>
-        </Link> 
+          <div className="icon icon-positions"></div>
+        </Link>
       </div>
       <div className={"icon__wrapper" + (location === "/ticket" ? " On" : "")}>
         <Link to={"/ticket"}>
-         <div className="icon icon-ticket"></div>
-         <p><Link to={"/ticket"}>Biletlar</Link></p>
+          <div className="icon icon-ticket"></div>
         </Link>
       </div>
-      <div className={"icon__wrapper" + (location === "/foydalanuvchilar" ? " On" : "")}>
+      <div
+        className={
+          "icon__wrapper" + (location === "/foydalanuvchilar" ? " On" : "")
+        }
+      >
         <Link to={"/foydalanuvchilar"}>
           <div className="icon icon-users"></div>
-           <p><Link to={"/foydalanuvchilar"}>Users</Link></p>
         </Link>
       </div>
       <div className={"icon__wrapper" + (location === "/agenda" ? " On" : "")}>
         <Link to={"/agenda"}>
           <div className="icon icon-agenda"></div>
-          <p><Link to={"/agenda"}>Aganda</Link></p>
         </Link>
       </div>
-      <div className={"icon__wrapper" + (location === "/spikerlar" ? " On" : "")}>
+      <div
+        className={"icon__wrapper" + (location === "/spikerlar" ? " On" : "")}
+      >
         <Link to={"/spikerlar"}>
-         <div className="icon icon-speaker"></div>
-         <p><Link to={"/spikerlar"}>Spikerlar</Link></p>
+          <div className="icon icon-speaker"></div>
         </Link>
       </div>
-      <div className={"icon__wrapper" + (location === "/comments" ? " On" : "")}>
+      <div
+        className={"icon__wrapper" + (location === "/comments" ? " On" : "")}
+      >
         <Link to={"/comments"}>
           <div className="icon icon-comments"></div>
-          <p><Link to={"/comments"}>Comments</Link></p>
         </Link>
       </div>
-      <div className={"icon__wrapper" + (location === "/settings" ? " On" : "")}>
-        <Link to={"/settings"}> 
-         <div className="icon icon-settings"></div>
-          <p><Link to={"/settings"}>Settings</Link></p>
+      <div
+        className={"icon__wrapper" + (location === "/settings" ? " On" : "")}
+      >
+        <Link to={"/settings"}>
+          <div className="icon icon-settings"></div>
         </Link>
       </div>
-      {/* <div className={"icon__wrapper" + (location === "/users" ? " On" : "")}>
-        <div className="icon icon-users">User</div>
-      </div> */}
-      <div  onClick={pageOut} id="out" className="icon__wrapper">
-         <Link to={"/login"}>
+      <div onClick={pageOut} id="out" className="icon__wrapper">
+        <Link to={"/login"}>
           <div className="icon icon-out"></div>
           <p>Exit</p>
-         </Link>
+        </Link>
       </div>
     </StyledSidebar>
   );
@@ -83,7 +83,6 @@ export default function Sidebar() {
 
 const StyledSidebar = styled.div`
   padding: 15px;
-  /* margin: 0 50px; */
   width: max-content;
   height: 100vh;
   background-color: #fff;
@@ -91,14 +90,12 @@ const StyledSidebar = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: 10px;
+  gap: 30px;
   position: fixed;
   .userAvatar {
     max-width: 58px;
     max-height: 58px;
-    /* margin-left: 10px; */
     margin: 0 auto 15px;
-
     img {
       width: 100%;
       height: 100%;
@@ -115,6 +112,7 @@ const StyledSidebar = styled.div`
     justify-content: center;
     margin: 0 auto;
     cursor: pointer;
+
     a {
       text-decoration: none;
       display: flex;
@@ -122,27 +120,28 @@ const StyledSidebar = styled.div`
       align-items: center;
       justify-content: center;
       p {
-      padding-top: 15px;
-      font-size: 15px;
-      line-height: 1px;
-      color: #8992a9;
-      font-weight: bold;
-      a {
-        text-align: center;
-        list-style: none;
-        text-decoration: none;
+        /* padding-top: 15px; */
+        font-size: 15px;
+        line-height: 1px;
         color: #8992a9;
+        font-weight: bold;
+        a {
+          text-align: center;
+          list-style: none;
+          text-decoration: none;
+          color: #8992a9;
+        }
       }
-    }
     }
 
     &.On {
       color: #fff;
-      background-color: #E3EBFF;
+      background-color: #e3ebff;
       border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
+      /* padding: 5px; */
       a {
         border-radius: 16px;
         color: royalblue;
@@ -150,9 +149,11 @@ const StyledSidebar = styled.div`
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding: 10px;
       }
-      .icon{
+      .icon {
         background: royalblue;
+        /* padding: 15px; */
       }
     }
 
@@ -161,7 +162,6 @@ const StyledSidebar = styled.div`
       bottom: 32px;
       display: flex;
     }
-
   }
   #out {
     position: absolute;

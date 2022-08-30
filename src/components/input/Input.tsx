@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 interface IInput {
   value?: string | number;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   type?: string;
   name?: string;
@@ -14,7 +14,7 @@ export default function Input({
   value,
   placeholder,
   onChange,
-  type = "text",
+  type = "text" ,
   name,
   setName,
 }: IInput) {
@@ -39,7 +39,7 @@ export default function Input({
           onChange={onChange}
           name={name}
         />
-        <div onClick={() => clearClick()} className="icon icon-clear"></div>
+        <div onClick={() => clearClick()} className={ type==="text" ? "icon icon-clear" : ""} ></div>
       </div>
     </StyledInput>
   );

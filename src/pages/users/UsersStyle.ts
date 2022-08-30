@@ -127,6 +127,7 @@ export const UsersStyle = styled.div`
 
     .expand {
       color: #8992a9;
+      cursor: pointer;
     }
   }
 `;

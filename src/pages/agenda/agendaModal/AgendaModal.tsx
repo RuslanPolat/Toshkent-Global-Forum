@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 import { IContext, MyContext } from "../../../context/Context";
@@ -8,10 +8,10 @@ import MyButton from "../../../components/button/MyButton";
 import Input from "../../../components/input/Input";
 // import "./assets/style/style.css";
 import Selects from "../../../components/select/Selects";
-import { type } from "os";
 
 interface ModalProps {
   onBackdropClick: () => void;
+  user: any;
 }
 
 export interface IModal {
@@ -24,90 +24,105 @@ const arr: IModal[] = [
     id: 1,
     name: "Activity",
   },
+  {
+    id: 2,
+    name: "Speaker",
+  },
 ];
 
-const AgendaModal: React.FC<ModalProps> = ({ onBackdropClick }) => {
-  const { postAgenda } = useContext<IContext>(MyContext);
+const AgendaModal: React.FC<ModalProps> = ({ onBackdropClick, user, }) => {
+  const { postAgenda, userSpicers, putAgenda } =
+    useContext<IContext>(MyContext);
   const [name, setName] = useState({
-    en: "",
-    ru: "",
-    uz: "",
+    name: {
+      en: "",
+      ru: "",
+      uz: "",
+    },
+    type: "activity",
+    endTime: "",
+    startTime: "",
   });
 
-  const [typee, setType] = useState({
-    starttime: "2022:25",
-    endtime: "20225:25",
-  });
-
-  const [activy, setActivy] = useState({
-    type:"activity"
-  })
 
   function changeNamee(e: React.ChangeEvent<HTMLInputElement>) {
-    const { value, name } = e.target;
-
-    setName((p) => ({ ...p, [name]: value }));
+    const { name, value } = e.target;
+    setName((p: any) => ({
+      ...p,
+      name: { en: p.name.en, ru: p.name.ru, uz: p.name.uz, [name]: value },
+    }));
   }
 
   function changeName(e: React.ChangeEvent<HTMLInputElement>) {
     const { value, name } = e.target;
 
-    setType((p) => ({ ...p, [name]: value }));
+    setName((p) => ({ ...p, [name]: value }));
   }
-
 
   function handleeSubmit() {
-    if (postAgenda) {
-      postAgenda({
-        name, 
-        type:"avtivity",
-        startTime: "2022-25",
-        endTime: "2022-25",
-      });
+    // if (user?.name.name === "") {
+      if (postAgenda) {
+        postAgenda(name);
+    } else {
+      const _id = user?._id;
+      if (putAgenda) {
+        putAgenda({ _id, name });
+      }
     }
   }
+
+  useEffect(() => {
+    if (!user._id) return;
+        setName(user.name.name)
+    setName(user.name);
+    console.log(user);
+  }, []);
 
   return ReactDOM.createPortal(
     <div>
       <Styledapp>
         <form>
           <h1>Add Users</h1>
-          <Selects
-            placeholder="Type Speaker or Activity"
-          options={arr} />
+          <Selects placeholder="Type Speaker or Activity" options={arr} />
           <Input
-            value={name.en}
+            value={name.name.en}
             placeholder="Name in English*"
             onChange={changeNamee}
             name="en"
+            setName={setName}
           />
           <Input
-            value={name.ru}
+            value={name.name.ru}
             placeholder="Name in Russia *"
             onChange={changeNamee}
             name="ru"
+            setName={setName}
           />
           <Input
-            value={name.uz}
+            value={name.name.uz}
             placeholder="Name in Uzbek*"
             onChange={changeNamee}
             name="uz"
+            type="text"
+            setName={setName}
           />
           <Input
-            value={typee.starttime}
+            value={name.startTime}
             placeholder="Star Time*"
             onChange={changeName}
-            name="starttime"
+            name="startTime"
+            type="datetime-local"
+            setName={setName}
           />
           <Input
-            value={typee.endtime}
+            value={name.endTime}
             placeholder="End Time *"
             onChange={changeName}
-            name="endtime"
+            name="endTime"
+            type="datetime-local"
+            setName={setName}
           />
-          <Selects 
-          placeholder="Speaker"
-          options={arr} />
+          <Selects placeholder="Speaker" usersData={userSpicers} />
           <div className="button">
             <Button
               click={() => {

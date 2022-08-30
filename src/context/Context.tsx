@@ -9,6 +9,8 @@ import React, {
 import { Navigate, useNavigate } from "react-router-dom";
 import { ILogin } from "../pages/login/Login";
 import { myAxios } from "../service/axios/index";
+import { Toast } from "react-toastify/dist/components";
+import { toast } from "react-toastify";
 
 export const MyContext = createContext({});
 
@@ -51,10 +53,12 @@ export interface IContext {
   putField?: Function;
   putPosition?: Function;
   putSpecers?: Function;
+  putAgenda?: Function;
   postSpicers?: (body: any
   ) => Promise<void> | undefined;
   postAgenda?: (body: any) => Promise<void> | undefined;
   postUser?: (body: any) => Promise<void> | undefined;
+  postTicket?: (body: any) => Promise<void> | undefined;
 }
 
 export interface IRes {
@@ -190,10 +194,10 @@ export default function Context({ children }: any) {
     }
   }
 
-
   async function putPosition(user: {}) {
     try {
       const res = await myAxios.put("/position", user);
+      // toast.success("Muvaffaqiyatli O'zgartirildi")
       getPosition();
     } catch (error) {
       console.log("Put Position ishlamadi !");
@@ -213,6 +217,7 @@ export default function Context({ children }: any) {
   async function postPosit(name: any) {
     try {
       const res = await myAxios.post("/position", { name });
+      // toast.success("Qo'shildi")
       getPosition();
       console.log(res);
     } catch (error) {
@@ -339,6 +344,15 @@ export default function Context({ children }: any) {
       console.log("Post Agenda ishlamadi !");
     }
   }
+
+  async function putAgenda(user: {}) {
+    try {
+      const res = await myAxios.put("/agenda", user);
+      getAgenda();
+    } catch (error) {
+      console.log("Put Agenda ishlamadi !");
+    } 
+  }
   
 
   // Users Page API 
@@ -397,6 +411,15 @@ export default function Context({ children }: any) {
     }
   }
 
+  async function postTicket(body:any) {
+    try {
+      const res = await myAxios.post("/ticket", body );
+      getTicket();
+      console.log(res);
+    } catch (error) {
+      console.log("Post Ticket ishlamadi !");
+    }
+  }
 
   // ======
 
@@ -437,6 +460,7 @@ export default function Context({ children }: any) {
         postField,
         postAgenda,
         postUser,
+        postTicket,
         userFiel,
         userSpicers,
         userAgenda,
@@ -453,6 +477,7 @@ export default function Context({ children }: any) {
         deleteTicket,
         deleteUser,
         putSpecers,
+        putAgenda,
         getAgenda,
         getUsers,
         getTicket,

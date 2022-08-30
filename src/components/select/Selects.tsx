@@ -24,8 +24,9 @@ export default function Selects({ options = undefined, placeholder, usersData, s
   function onclick(id: string, name: string) {
     console.log(id, name, placeholder);        
     if (placeholder === "Fields") setName((p: {}) => ({ ...p, fieldId: id }));
-    if (placeholder === "Position")
-      setName((p: {}) => ({ ...p, positionId: id }));
+    if (placeholder === "Position") setName((p: {}) => ({ ...p, positionId: id }));
+    if (placeholder === "Speaker") setName((p: {}) => ({ ...p, speakerId: id }));
+
   }
   return (
     <SelectStyled>

@@ -38,6 +38,16 @@ export default function Ticket() {
     setChecked(!checked);
   };
 
+  const [curent, setCurent] = useState({
+    _id: "",
+    name: {
+      sector: "",
+      row: "",
+      seat: "",
+      price: "",
+    },
+  });
+
   function editInfo() {
     const index: any = list.map((item, idx) => item && idx);
     const editItem = userTicket?.data?.map(
@@ -46,9 +56,9 @@ export default function Ticket() {
     return editItem;
   }
 
-  useEffect(() => {
-    console.log(list);
-  }, [list]);
+  // useEffect(() => {
+  //   console.log(list);
+  // }, [list]);
 
   function deleteTickets() {
     if (deleteTicket) {
@@ -56,13 +66,6 @@ export default function Ticket() {
     }
   }
 
-  const [curent, setCurent] = useState({
-    _id: "",
-    sector: "",
-    row: "",
-    seat: "",
-    price: "",
-  });
 
   useEffect(() => {
     if (getTicket) {
@@ -75,7 +78,7 @@ export default function Ticket() {
       <section className="user--card">
         <div className="first--div">
           <div className="tag--div">
-            <h2>{list.length} selected</h2>
+            <h2>{list.length === 0 ? "" : list.length + " selected"}</h2>{" "}
           </div>
           <div className="icon--div">
             <div onClick={deleteTickets} className="icon icon-icon1"></div>
@@ -115,10 +118,15 @@ export default function Ticket() {
                     checked={list.includes(i._id)}
                     onChange={() => {
                       deleteId(i._id);
-                      // setCurent(i.se);
+                      // setCurent(i);
                     }}
                   />
-                  <p id="p">{i?.category}</p>
+                  <p   onClick={() => {
+                      toggleModal();
+                      deleteId(i._id);
+                      // setCurent(i);
+                      // editInfo();
+                    }} id="p">{i?.category}</p>
                 </div>
               </div>
               <div className="card--div">
@@ -142,7 +150,8 @@ export default function Ticket() {
               </div>
               <div className="card--div">
                 <div className="expand">
-                  <p>{i?.occupied}</p>
+                  {i.occupied === false ? <p onClick={toggleModal} id="free">Free</p> : null}
+                  {/* <p>{i?.occupied === true ? className="free" : ""}</p> */}
                 </div>
               </div>
               <div className="card--div"></div>

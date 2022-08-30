@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 //
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -15,6 +16,7 @@ export default function App() {
       <GlobalStyle />
       <BrowserRouter>
         <Context>
+          <ToastContainer/>
           <Router />
         </Context>
       </BrowserRouter>

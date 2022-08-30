@@ -44,6 +44,7 @@ export const TicketStyled = styled.div`
     gap: 5px;
     align-items: flex-start;
     color: #8992a9;
+    cursor: pointer;
 
     input {
       width: 22px;
@@ -128,5 +129,12 @@ export const TicketStyled = styled.div`
     .expand {
       color: #8992a9;
     }
+  }
+
+  #free {
+    background-color: green;
+    color: #fff;
+    border-radius: 8px;
+    padding: 5px 8px 8px;
   }
 `;

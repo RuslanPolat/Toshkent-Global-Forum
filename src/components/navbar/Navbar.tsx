@@ -17,13 +17,13 @@ export default function Navbar() {
                   :  location === "/agenda" ? "Agenda" 
                   :  location === "/spikerlar" ? "Speaker" :  location === "/comments" ? "Comments" :  location === "/settings" ? "Settings" : "User"}</h1>
             </div>
-            <div className='icon--div'>
+            {/* <div className='icon--div'>
                 <div className='icon icon-msg'></div>
                 <div className='back--icon'>
                 <div className='icon icon-notify'></div>
                 </div>
                 <div className='icon icon-full'></div>
-            </div>
+            </div> */}
         </section>
     </NavbarStyle>
   )

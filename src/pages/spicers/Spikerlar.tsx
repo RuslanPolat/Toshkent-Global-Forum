@@ -58,12 +58,6 @@ export default function Spikerlar() {
   });
 
   
-  function editInfo() {
-    const index:any = list.map((item, idx)=> item && idx)
-    const editItem = userSpicers?.data?.map((item: any) => item?._id === list[0] && item );
-    return editItem
-  };
-
 
   useEffect(()=>{
     console.log(list);
@@ -83,7 +77,7 @@ export default function Spikerlar() {
       <section className="user--card">
         <div className="first--div">
           <div className="tag--div">
-            <h2>{list.length} selected</h2>
+            <h2>{list.length === 0 ? "" : list.length + " selected"}</h2>
           </div>
           <div className="icon--div">
             <div onClick={deleteSpecer} className="icon icon-icon1"></div>
@@ -91,7 +85,7 @@ export default function Spikerlar() {
             <div
               className={"" + (list.length === 1 ? "icon icon-icon2" : "")}
               onClick={() => {
-                toggleModal(); editInfo()
+                toggleModal()
               }}
             ></div>
           </div>
@@ -122,7 +116,11 @@ export default function Spikerlar() {
                     checked={list.includes(i._id)}
                     onChange={() =>  {deleteId(i._id); setCurent(i)}}
                   />
-                  <p id="p">{i?.name.en}</p>
+                  <p   onClick={() => {
+                      toggleModal();
+                      deleteId(i._id);
+                      setCurent(i);
+                    }} id="p">{i?.name.en}</p>
                 </div>
               </div>
               <div className="card--div">
@@ -159,7 +157,6 @@ export default function Spikerlar() {
       <BaseSpicers
         isModalVisible={isModalVisible}
         onBackdropClick={toggleModal}
-        editInfo={editInfo}
         user={curent}
       />
     </SpikerlarStyle>

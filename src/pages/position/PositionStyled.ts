@@ -44,6 +44,7 @@ export const PositionStyled = styled.div`
     gap: 5px;
     align-items: flex-start;
     color: #8992a9;
+    cursor: pointer;
 
     input {
       width: 22px;

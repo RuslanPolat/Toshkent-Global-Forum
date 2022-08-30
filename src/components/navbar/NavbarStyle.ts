@@ -5,7 +5,7 @@ export const NavbarStyle = styled.section`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 18px 50px 19px 38px;
+    padding: 18px 50px 0px 38px;
     background: #f8f8f8;
     position: fixed;
     width: 90%;
@@ -20,14 +20,13 @@ export const NavbarStyle = styled.section`
         line-height: 26px;
         letter-spacing: 0em;
         text-align: left;
-        padding-top: 11px
+        padding-top: 20px
       }
     }
     .icon--div {
       display: flex;
       align-items: center;
       gap: 32px
-    //   padding: 15px
     }
     .back--icon {
         background-color: #fff;

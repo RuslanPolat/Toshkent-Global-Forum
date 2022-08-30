@@ -7,11 +7,10 @@ import Input from "../../../components/input/Input";
 
 interface ModalProps {
   onBackdropClick: () => void;
-  editInfo: any;
   user: any;
 }
 
-const SpicersModal: React.FC<ModalProps> = ({ onBackdropClick, editInfo, user }) => {
+const SpicersModal: React.FC<ModalProps> = ({ onBackdropClick, user }) => {
   const { postSpicers, putSpecers } = useContext<IContext>(MyContext);
   const [bioname, setBioName] = useState({
       uz: "",
@@ -30,31 +29,6 @@ const SpicersModal: React.FC<ModalProps> = ({ onBackdropClick, editInfo, user })
     });
 
 
-    useEffect(() => {
-      let index:number = 0
-      for(let i=0; i<editInfo().length; i++){
-        if(editInfo()[i]!==false)
-        index = i;
-      }
-      
-      if (editInfo()[index]?._id) {
-        setName({
-          uz: editInfo()[index]?.name?.uz,
-          ru: editInfo()[index]?.name?.ru,
-          en: editInfo()[index]?.name?.en, 
-        });
-      }
-
-      if (editInfo()[index]?._id) {
-        setBioName({
-          uz: editInfo()[index]?.bio?.uz,
-          ru: editInfo()[index]?.bio?.ru,
-          en: editInfo()[index]?.bio?.en, 
-        });
-      }
-    }, []);
-
-
   function changeNamee(e: React.ChangeEvent<HTMLInputElement>) {
     const { value, name } = e.target;
 
@@ -68,8 +42,7 @@ const SpicersModal: React.FC<ModalProps> = ({ onBackdropClick, editInfo, user })
   }
 
   function handleeSubmit() {
-    if(user?.name === "")
-    // if(user?.bioname.uz === "")
+    if(user?.name.uz === "")
     {
       if (postSpicers) {
         postSpicers({
@@ -80,13 +53,18 @@ const SpicersModal: React.FC<ModalProps> = ({ onBackdropClick, editInfo, user })
       }
     }
     else {
-      const __id = user?.__id;
+      const _id = user?._id;
       if(putSpecers) {
-        putSpecers({__id, name, bioname})
-        console.log(__id, name, bioname);
+        putSpecers({_id, name, bio:bioname, image:"rasm"})
       }
     }
   }
+  
+  useEffect(() => {
+      if(!user._id) return;
+      setName(user.name)
+      setBioName(user.bio)      
+    }, [])
 
   return ReactDOM.createPortal(
     <div>
@@ -119,18 +97,21 @@ const SpicersModal: React.FC<ModalProps> = ({ onBackdropClick, editInfo, user })
             placeholder="Bio in English*"
             onChange={changeName}
             name="en"
+            setName={setBioName}
           />
           <Input
             value={bioname.ru}
             placeholder="Bio in Russia*"
             onChange={changeName}
             name="ru"
+            setName={setBioName}
           />
           <Input
             value={bioname.uz}
             placeholder="Bio in Uzbek*"
             onChange={changeName}
             name="uz"
+            setName={setBioName}
           />
           <div className="button">
             <Button

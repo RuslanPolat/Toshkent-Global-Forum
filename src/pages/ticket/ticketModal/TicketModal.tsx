@@ -22,12 +22,14 @@ export interface IModal {
 
 
 const TicketModal: React.FC<ModalProps> = ({ onBackdropClick, editInfo, user }) => {
-  const { postField } = useContext<IContext>(MyContext);
+  const { postTicket } = useContext<IContext>(MyContext);
   const [name, setName] = useState({
+    category: "vip",
     sector: "",
     row: "",
     seat: "",
-    price: "",
+    price: 12000,
+    barcode: "spon",
   });
 
   const arr: IModal[] = [
@@ -52,28 +54,30 @@ const TicketModal: React.FC<ModalProps> = ({ onBackdropClick, editInfo, user }) 
   }
 
   function handleeSubmit() {
-    if (postField) {
-    //   postField(name);
+    if (postTicket) {
+      postTicket(name);
     }
   }
 
   
-  useEffect(() => {
-    let index:number = 0
-    for(let i=0; i<editInfo().length; i++){
-      if(editInfo()[i]!==false)
-      index = i;
-    }
+  // useEffect(() => {
+  //   let index:number = 0
+  //   for(let i=0; i<editInfo().length; i++){
+  //     if(editInfo()[i]!==false)
+  //     index = i;
+  //   }
     
-    if (editInfo()[index]?._id) {
-      setName({
-        sector: editInfo()[index]?.name?.sector,
-        row: editInfo()[index]?.name?.row,
-        seat: editInfo()[index]?.name?.seat,
-        price: editInfo()[index]?.name?.price, 
-      });
-    }
-  }, []);
+  //   if (editInfo()[index]?._id) {
+  //     setName({
+  //       category: editInfo()[index]?.namme?.category,
+  //       sector: editInfo()[index]?.name?.sector,
+  //       row: editInfo()[index]?.name?.row,
+  //       seat: editInfo()[index]?.name?.seat,
+  //       price: editInfo()[index]?.name?.price, 
+  //       barcode: editInfo()[index]?.name?.barcore,
+  //     });
+  //   }
+  // }, []);
 
 
 
@@ -90,24 +94,28 @@ const TicketModal: React.FC<ModalProps> = ({ onBackdropClick, editInfo, user }) 
             placeholder="Sector *"
             onChange={changeNamee}
             name="sector"
+            setName={setName}
           />
           <Input
             value={name.row}
             placeholder="Row *"
             onChange={changeNamee}
             name="row"
+            setName={setName}
           />
           <Input
             value={name.seat}
             placeholder="Seat *"
             onChange={changeNamee}
             name="seat"
+            setName={setName}
           />
           <Input
             value={name.price}
             placeholder="Narxi *"
             onChange={changeNamee}
             name="price"
+            setName={setName}
           />
           <div className="button">
           <Button click={() => {handleeSubmit(); onBackdropClick()}} pe={false} typee="button">

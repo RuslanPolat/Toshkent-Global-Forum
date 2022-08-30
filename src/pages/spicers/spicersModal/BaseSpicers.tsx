@@ -4,15 +4,14 @@ import SpicersModal from "./SpicersModal"
 interface BaseModalWrapperProps {
     isModalVisible: boolean;
     onBackdropClick: () => void;
-    editInfo: any
-    user: any
+    user: any;
 }
 
-const BaseSpicers: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isModalVisible, editInfo, user}) => {
+const BaseSpicers: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isModalVisible, user}) => {
     if(!isModalVisible) {
         return null
     }
 
-    return (<SpicersModal onBackdropClick={ onBackdropClick} editInfo={editInfo} user={user}/>)
+    return (<SpicersModal onBackdropClick={ onBackdropClick}  user={user}/>)
 }
 export default BaseSpicers;

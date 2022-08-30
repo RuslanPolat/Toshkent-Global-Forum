@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { SettingsStyle } from "./SettingsStyle";
 import SearchInput from "../../components/searchinput/SerchInput";
 import BaseSettings from "./settingsModal/BaseSettings";
+import { listenerCount } from "process";
 
 export default function Settings() {
 
@@ -19,7 +20,7 @@ export default function Settings() {
       <section className="user--card">
         <div className="first--div">
           <div className="tag--div">
-            <h2>4 Users selected</h2>
+            <h2></h2>
           </div>
           <div className="icon--div">
             <div className="icon icon-icon1"></div>

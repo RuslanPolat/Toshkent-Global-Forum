@@ -68,7 +68,7 @@ export default function Fields() {
 
   function deleteFields() {
     if (deleteField) {
-      deleteField({ ids: list });
+      deleteField({ ids: list});
     }
   }
 
@@ -77,7 +77,7 @@ export default function Fields() {
       <section className="user--card">
         <div className="first--div">
           <div className="tag--div">
-            <h2>{list.length} selected</h2>
+            <h2>{list.length === 0 ? "" : list.length + " selected"}</h2>
           </div>
           <div className="icon--div">
             <div className="icon icon-icon1" onClick={deleteFields}></div>
@@ -123,6 +123,9 @@ export default function Fields() {
                   <p
                     onClick={() => {
                       toggleModal();
+                      deleteId(i._id);
+                      setCurent(i);
+                      editInfo();
                     }}
                     id="p"
                   >

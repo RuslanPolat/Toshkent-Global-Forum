@@ -77,8 +77,6 @@ const UsersModal: React.FC<ModalProps> = ({ onBackdropClick, editInfo, user }) =
 
   function handleeSubmit() {
     if (postUser) {
-      // let cout = Number(name.employeecount);
-      // setName((p) => ({...p, employeecount:cout}))
       postUser(
         name
         )
